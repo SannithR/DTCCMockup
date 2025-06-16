@@ -11,7 +11,8 @@ import { Line36 } from "../Line36/Line36";
 import { Line37 } from "../Line37/Line37";
 import { Polygon1 } from "../Polygon1/Polygon1";
 import "./style.css";
-import Header from "../../components/Header";
+
+import ContentUpdated from "../../Page3Upadted/ContentUpdated/ContentUpdated";
 
 export default function Content () {
   const [searchTerm, setSearchTerm] = useState("");
@@ -100,9 +101,11 @@ export default function Content () {
           )}
         </div>
       </div>
-    
 
-      <div className="simple-alerts">
+      {/* Conditional rendering based on active tab */}
+      {activeTab === "NAVIGATION ONE" && (
+        <>
+          <div className="simple-alerts">
         <div className="a-simple-info-alert-wrapper">
           <div className="a-simple-info-alert">Latest Updates</div>
         </div>
@@ -116,7 +119,7 @@ export default function Content () {
         <div className="cards">
           <div className="group" onClick={() => alert('Card 1 clicked!')}>
             <div className="group-2">
-              <div className="total-alerts">Aleifend tellus. Aenean</div>
+              <div className="total-alerts">Aleifend tellus.</div>
 
               <div className="element">50</div>
             </div>
@@ -675,6 +678,30 @@ export default function Content () {
         </div>
       </div>
 
+        </>
+      )}
+
+      {/* Content for NAVIGATION TWO */}
+      {activeTab === "NAVIGATION TWO" && (
+        <ContentUpdated />
+      )}
+
+      {/* Content for NAVIGATION THREE */}
+      {activeTab === "NAVIGATION THREE" && (
+        <div className="navigation-three-content">
+          <div className="simple-alerts">
+            <div className="a-simple-info-alert-wrapper">
+              <div className="a-simple-info-alert">Navigation Three Content</div>
+            </div>
+          </div>
+          <div style={{ padding: '40px', textAlign: 'center' }}>
+            <h2>Navigation Three</h2>
+            <p>This is the content for Navigation Three tab. You can add your specific components here.</p>
+          </div>
+        </div>
+      )}
+
+      {/* Footer - appears on all tabs */}
       <div className="component-2">
         <div className="frame-20">
           <div className="frame-21">

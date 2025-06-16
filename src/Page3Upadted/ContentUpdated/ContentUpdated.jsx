@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { IconComponentNode } from "../IconComponentNode/IconComponentNode";
 import { Line1 } from "../Line1/Line1";
 import { Line1_1 } from "../Line11/Line1_1";
@@ -6,87 +6,188 @@ import { Line7 } from "../Line7/Line7";
 import { Line38 } from "../Line38/Line38";
 import { Line39 } from "../Line39/Line39";
 import { Line40 } from "../Line40/Line40";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import SearchIcon from '@mui/icons-material/Search';
 import "./style.css";
 
 export default function ContentUpdated () {
+  // State management
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(18);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDropdowns, setSelectedDropdowns] = useState({
+    dropdown1: "",
+    dropdown2: "",
+    dropdown3: "",
+    dropdown4: ""
+  });
+  const [selectedRows, setSelectedRows] = useState(new Set());
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
+  // Keep the existing table data structure but make it paginated
+  const allData = useMemo(() => {
+    // Original table data from the existing structure
+    const column1Data = [
+      "0034779", "0034778", "0234779", "4234559", "3234759", "0034759", "6234759", "0034779",
+      "6234759", "4234559", "0034779", "3234759", "3234759", "4234559", "0034759", "0034759",
+      "0034759", "0034759", "6234759", "6234759", "0034779", "0034779", "0034759", "0034759", "0034779"
+    ];
+
+    const column2Data = [
+      "Test", "Test 0234779", "Test 001", "Test 0012345", "Test 007", "Test 0456789", "Test 002",
+      "Test 0016789", "Test 003", "Test 0098765", "Test 004", "Test 0123456", "Test 005", "Test 0087654",
+      "Test 006", "Test 0034567", "Test 010", "Test 0111111", "Test 012", "Test 0134567", "Test 014",
+      "Test 0156789", "Test 016", "Test 0179876", "Test 018"
+    ];
+
+    const column3Data = [
+      "30_ABXYZ", "35_GHIKZM", "20_ABXYM", "25_KHIKZM", "40_LMNOPQ", "15_DEFUVW", "50_RSTUVW",
+      "45_XYZABC", "10_KLMNOP", "55_QRSTUV", "60_ABCDEF", "70_GHIJKL", "65_MNOPQR", "80_STUVWX",
+      "75_YZABCD", "85_EFGHIJ", "90_PQRSTU", "95_VWXYZA", "100_HIJKLM", "110_NOPQRS", "105_TUVWXY",
+      "120_ZABCDE", "125_FGHJKL", "130_MNOPST", "140_QRSTUV"
+    ];
+
+    const column4Data = [
+      "2024-12-25  03:09:05 AM", "2024-11-25  04:19:06 AM", "2024-10-26  03:09:08 AM",
+      "2024-12-25  05:09:15 AM", "2024-12-25  03:09:05 PM", "2024-12-24  03:09:25 AM",
+      "2024-11-23  03:09:07 AM", "2024-10-21  03:09:09 AM", "2024-12-25  05:08:01 AM",
+      "2024-12-25  03:09:08 PM", "2024-11-23  03:09:05 AM", "2024-12-25  03:09:05 AM",
+      "2024-12-25  03:09:15 AM", "2024-12-25  03:09:55 PM", "2024-12-25  03:09:35 PM",
+      "2024-12-25  03:09:05 AM", "2024-12-20  03:09:05 AM", "2024-12-21  08:09:05 PM",
+      "2024-12-27  09:09:05 AM", "2024-12-25  02:09:05 AM", "2024-12-23  03:09:05 AM",
+      "2024-12-25  03:09:05 PM", "2024-12-25  03:09:05 AM", "2024-12-27  03:09:05 AM",
+      "2024-12-25  03:09:05 AM"
+    ];
+
+    // Create 800 items by repeating and varying the original data
+    const data = [];
+    for (let i = 0; i < 800; i++) {
+      data.push({
+        id: i + 1,
+        column1: column1Data[i % column1Data.length],
+        column2: column2Data[i % column2Data.length],
+        column3: column3Data[i % column3Data.length],
+        column4: column4Data[i % column4Data.length]
+      });
+    }
+    return data;
+  }, []);
+
+  // Dropdown options
+  const dropdownOptions = [
+    { value: "", label: "Select" },
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+    { value: "option4", label: "Option 4" }
+  ];
+
+  // Filter and search logic
+  const filteredData = useMemo(() => {
+    let filtered = allData;
+
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(item =>
+        Object.values(item).some(value =>
+          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    }
+
+    // Apply dropdown filters (if needed)
+    // Add filtering logic based on dropdown selections here
+
+    return filtered;
+  }, [allData, searchTerm, selectedDropdowns]);
+
+  // Sorting logic
+  const sortedData = useMemo(() => {
+    if (!sortConfig.key) return filteredData;
+
+    return [...filteredData].sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'asc' ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+  }, [filteredData, sortConfig]);
+
+  // Pagination logic
+  const totalItems = sortedData.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = sortedData.slice(startIndex, endIndex);
+
+  // Event handlers
+  const handleDropdownChange = (dropdownName, value) => {
+    setSelectedDropdowns(prev => ({
+      ...prev,
+      [dropdownName]: value
+    }));
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset to first page when searching
+  };
+
+  const handleSearchClick = () => {
+    // Search functionality is already handled by the input change
+    // This could trigger additional search actions if needed
+  };
+
+  const handleSort = (columnKey) => {
+    setSortConfig(prev => ({
+      key: columnKey,
+      direction: prev.key === columnKey && prev.direction === 'asc' ? 'desc' : 'asc'
+    }));
+  };
+
+  const handleRowSelect = (rowId) => {
+    setSelectedRows(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(rowId)) {
+        newSet.delete(rowId);
+      } else {
+        newSet.add(rowId);
+      }
+      return newSet;
+    });
+  };
+
+  const handleSelectAll = () => {
+    if (selectedRows.size === currentData.length) {
+      setSelectedRows(new Set());
+    } else {
+      setSelectedRows(new Set(currentData.map(item => item.id)));
+    }
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   return (
-    <div className="content">
-      <header className="header">
-        <div className="row">
-          <div className="div">
-            <div className="depository-trust">
-              <div className="logo">ABCD</div>
-            </div>
+    <div className="contant2">
 
-            <Line1 className="line" />
-            <div className="title">LOREM IPSUM</div>
 
-            <div className="div-2">
-              <div className="frame">
-                <div className="tool-bar-icons">
-                  <input className="search" placeholder="search" type="text" />
-
-                  <div className="div-wrapper">
-                    <div className="text-wrapper">question-circle</div>
-                  </div>
-
-                  <div className="menu">
-                    <div className="menu-2">
-                      <div className="th"></div>
-                    </div>
-                  </div>
-
-                  <div className="div-wrapper">
-                    <div className="text-wrapper">user-circle</div>
-                  </div>
-
-                  <div className="logout">
-                    <div className="logout-2">
-                      <div className="text-wrapper">sign-out</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="navigation">
-          <div className="tab-item">
-            <div className="text-wrapper-2">NAVIGATION ONE</div>
-          </div>
-
-          <div className="NAVIGATION-ONE-wrapper">
-            <div className="NAVIGATION-ONE">NAVIGATION TWO</div>
-          </div>
-
-          <div className="tab-item">
-            <div className="text-wrapper-2">NAVIGATION THREE</div>
-          </div>
-
-          <div className="tab-item" />
-
-          <div className="tab-item" />
-
-          <div className="group">
-            <div className="group-wrapper">
-              <div className="group-2">
-                <div className="text-wrapper-3">Switcher</div>
-              </div>
-            </div>
-
-            <div className="frame-2">
-              <p className="p">ABC123 - TEST MOCK UP IN DEVX</p>
-
-              <div className="frame-3">
-                <div className="text-wrapper-4">Chevron-down</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="main-content">
+      <div className="main-contant2">
         <div className="title-2">
           <div className="text">PAGE TITLE 00123</div>
 
@@ -95,7 +196,7 @@ export default function ContentUpdated () {
           </div>
         </div>
 
-        <div className="section">
+        <div className="section2">
           <div className="div-3">
             <div className="row-2">
               <div className="top-label-dropdown">
@@ -110,10 +211,37 @@ export default function ContentUpdated () {
                 </div>
 
                 <div className="div-4">
-                  <div className="text-wrapper-6">Select</div>
+                  <select
+                    value={selectedDropdowns.dropdown1}
+                    onChange={(e) => handleDropdownChange('dropdown1', e.target.value)}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      outline: 'none',
+                      width: '100%',
+                      cursor: 'pointer',
+                      appearance: 'none',
+                      color: 'inherit',
+                      fontSize: 'inherit',
+                      fontFamily: 'inherit'
+                    }}
+                  >
+                    {dropdownOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
 
                   <div className="frame-6">
-                    <div className="text-wrapper-4">Chevron-down</div>
+                    <KeyboardArrowDownIcon
+                      style={{
+                        color: '#666',
+                        fontSize: '20px',
+                        pointerEvents: 'none',
+                        marginRight:"-670px"
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -130,10 +258,37 @@ export default function ContentUpdated () {
                 </div>
 
                 <div className="div-4">
-                  <div className="text-wrapper-6">Select</div>
+                  <select
+                    value={selectedDropdowns.dropdown2}
+                    onChange={(e) => handleDropdownChange('dropdown2', e.target.value)}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      outline: 'none',
+                      width: '100%',
+                      cursor: 'pointer',
+                      appearance: 'none',
+                      color: 'inherit',
+                      fontSize: 'inherit',
+                      fontFamily: 'inherit'
+                    }}
+                  >
+                    {dropdownOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
 
                   <div className="frame-6">
-                    <div className="text-wrapper-4">Chevron-down</div>
+                    <KeyboardArrowDownIcon
+                      style={{
+                        color: '#666',
+                        fontSize: '20px',
+                        pointerEvents: 'none',
+                         marginRight:"-670px"
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -150,10 +305,37 @@ export default function ContentUpdated () {
                 </div>
 
                 <div className="div-4">
-                  <div className="text-wrapper-6">Select</div>
+                  <select
+                    value={selectedDropdowns.dropdown3}
+                    onChange={(e) => handleDropdownChange('dropdown3', e.target.value)}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      outline: 'none',
+                      width: '100%',
+                      cursor: 'pointer',
+                      appearance: 'none',
+                      color: 'inherit',
+                      fontSize: 'inherit',
+                      fontFamily: 'inherit'
+                    }}
+                  >
+                    {dropdownOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
 
                   <div className="frame-6">
-                    <div className="text-wrapper-4">Chevron-down</div>
+                    <KeyboardArrowDownIcon
+                      style={{
+                        color: '#666',
+                        fontSize: '20px',
+                        pointerEvents: 'none',
+                         marginRight:"-670px"
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -172,9 +354,38 @@ export default function ContentUpdated () {
                 </div>
 
                 <div className="div-4">
-                  <div className="text-wrapper-6">{""}</div>
+                  <select
+                    value={selectedDropdowns.dropdown4}
+                    onChange={(e) => handleDropdownChange('dropdown4', e.target.value)}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      outline: 'none',
+                      width: '100%',
+                      cursor: 'pointer',
+                      appearance: 'none',
+                      color: 'inherit',
+                      fontSize: 'inherit',
+                      fontFamily: 'inherit'
+                    }}
+                  >
+                    {dropdownOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
 
-                  <div className="frame-6" />
+                  <div className="frame-6">
+                    <KeyboardArrowDownIcon
+                      style={{
+                        color: '#666',
+                        fontSize: '20px',
+                        pointerEvents: 'none',
+                         marginRight:"-670px"
+                      }}
+                    />
+                  </div>
                 </div>
 
                 <div className="help-text-wrapper">
@@ -198,20 +409,66 @@ export default function ContentUpdated () {
                         </div>
 
                         <div className="frame-wrapper">
-                          <div className="frame-7" />
+                          <div className="frame-7">
+                            <input
+                              className="search-input"
+                              placeholder="Search"
+                              type="text"
+                              value={searchTerm}
+                              onChange={handleSearchChange}
+                              onClick={handleSearchClick}
+                              style={{
+                                background: 'transparent',
+                                border: 'none',
+                                outline: 'none',
+                                width: '100%',
+                                height: '100%',
+                                cursor: 'text',
+                                paddingRight: '30px',
+                                fontSize: 'inherit',
+                                fontFamily: 'inherit',
+                                color: 'inherit'
+                              }}
+                            />
+                         
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <input className="input" placeholder="Search" type="text" />
+                  <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                    <input
+                      className="input"
+                   
+                      type="text"
+                      // value={searchTerm}
+                      onChange={handleSearchChange}
+                      onClick={handleSearchClick}
+                      style={{
+                        cursor: 'text',
+                        paddingRight: '40px'
+                      }}
+                    />
+                    <SearchIcon
+                      style={{
+                        position: 'absolute',
+                        right: '12px',
+                        color: '#666',
+                        fontSize: '20px',
+                        cursor: 'pointer'
+                      }}
+                      onClick={handleSearchClick}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <button className="button">
+          <button className="button" onClick={handleSearchClick}>
             <div className="div-wrapper-2">
+              <SearchIcon style={{ marginRight: '8px', fontSize: '16px' }} />
               <div className="PRIMARY">FIND</div>
             </div>
           </button>
@@ -223,17 +480,40 @@ export default function ContentUpdated () {
               <div className="overlap">
                 <div className="action-bar">
                   <div className="frame-8">
-                    <div className="element-to-of">Total Items Found: 800</div>
+                    <div className="element-to-of">Total Items Found: {totalItems}</div>
                   </div>
 
                   <div className="data-grid-action-bar">
-                    <button className="button-2">
+                    <button
+                      className="button-2"
+                      onClick={() => {
+                        // Copy functionality
+                        console.log('Copy selected items:', Array.from(selectedRows));
+                      }}
+                      disabled={selectedRows.size === 0}
+                      style={{
+                        opacity: selectedRows.size === 0 ? 0.5 : 1,
+                        cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer'
+                      }}
+                    >
                       <div className="div-wrapper-2">
                         <div className="text-wrapper-8">COPY</div>
                       </div>
                     </button>
 
-                    <button className="button-3">
+                    <button
+                      className="button-3"
+                      onClick={() => {
+                        // Delete functionality
+                        console.log('Delete selected items:', Array.from(selectedRows));
+                        setSelectedRows(new Set());
+                      }}
+                      disabled={selectedRows.size === 0}
+                      style={{
+                        opacity: selectedRows.size === 0 ? 0.5 : 1,
+                        cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer'
+                      }}
+                    >
                       <div className="div-wrapper-2">
                         <div className="text-wrapper-8">DELETE</div>
                       </div>
@@ -265,1016 +545,201 @@ export default function ContentUpdated () {
                         <div className="checkbox-column">
                           <div className="checkbox">
                             <div className="div-5">
-                              <div className="rectangle" />
+                              <input
+                                type="checkbox"
+                                className="rectangle"
+                                checked={selectedRows.size === currentData.length && currentData.length > 0}
+                                onChange={handleSelectAll}
+                                style={{ cursor: 'pointer' }}
+                              />
                             </div>
                           </div>
 
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
+                       
 
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
+                         
 
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="check-box-wrapper">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
-
-                          <div className="checkbox-states-wrapper">
-                            <div className="check-box-wrapper">
+                          {currentData.map((item, index) => (
+                            <div
+                              key={item.id}
+                              className={index % 2 === 0 ? "checkbox-states" : "check-box-wrapper"}
+                            >
                               <div className="div-5">
-                                <div className="rectangle" />
+                                <input
+                                  type="checkbox"
+                                  className="rectangle"
+                                  checked={selectedRows.has(item.id)}
+                                  onChange={() => handleRowSelect(item.id)}
+                                  style={{ cursor: 'pointer' }}
+                                />
                               </div>
                             </div>
-                          </div>
-
-                          <div className="checkbox-states">
-                            <div className="div-5">
-                              <div className="rectangle" />
-                            </div>
-                          </div>
+                          ))}
                         </div>
 
                         <div className="data-column">
-                          <div className="header-cell">
+                          <div
+                            className="header-cell"
+                            onClick={() => handleSort('column1')}
+                            style={{ cursor: 'pointer' }}
+                          >
                             <div className="frame-9">
                               <div className="group-3">
                                 <IconComponentNode className="line-1" />
-                                <div className="label-3">Lorem Ipsum</div>
+                                <div className="label-3">
+                                  Lorem Ipsum
+                                  {sortConfig.key === 'column1' && (
+                                    <span style={{ marginLeft: '5px' }}>
+                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
 
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034779</div>
+                          {currentData.map((item, index) => (
+                            <div
+                              key={`col1-${item.id}`}
+                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
+                            >
+                              <div className="div-wrapper-2">
+                                <div className="lorem-lipsum">{item.column1}</div>
+                              </div>
                             </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034778</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0234779</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">4234559</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">3234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034779</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">4234559</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034779</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">3234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">3234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">4234559</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034779</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034779</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">0034779</div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
 
                         <div className="data-column">
-                          <div className="header-cell">
+                          <div
+                            className="header-cell"
+                            onClick={() => handleSort('column2')}
+                            style={{ cursor: 'pointer' }}
+                          >
                             <div className="frame-9">
                               <div className="group-4">
                                 <IconComponentNode className="line-1" />
-                                <div className="label-3">Pede justo</div>
+                                <div className="label-3">
+                                  Pede justo
+                                  {sortConfig.key === 'column2' && (
+                                    <span style={{ marginLeft: '5px' }}>
+                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
 
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test</div>
+                          {currentData.map((item, index) => (
+                            <div
+                              key={`col2-${item.id}`}
+                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
+                            >
+                              <div className="div-wrapper-2">
+                                <div className="lorem-lipsum">{item.column2}</div>
+                              </div>
                             </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0234779</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 001</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0012345</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 007</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0456789</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 002</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0016789</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 003</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0098765</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 004</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0123456</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 005</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0087654</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 006</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0034567</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 010</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0111111</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 012</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0134567</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 014</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0156789</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 016</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 0179876</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">Test 018</div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
 
                         <div className="data-column-2">
-                          <div className="header-cell">
+                          <div
+                            className="header-cell"
+                            onClick={() => handleSort('column3')}
+                            style={{ cursor: 'pointer' }}
+                          >
                             <div className="frame-9">
                               <div className="group-5">
                                 <IconComponentNode className="line-1" />
-                                <div className="label-3">Donec pede justo</div>
+                                <div className="label-3">
+                                  Donec pede justo
+                                  {sortConfig.key === 'column3' && (
+                                    <span style={{ marginLeft: '5px' }}>
+                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
 
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">30_ABXYZ</div>
+                          {currentData.map((item, index) => (
+                            <div
+                              key={`col3-${item.id}`}
+                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
+                            >
+                              <div className="div-wrapper-2">
+                                <div className="lorem-lipsum">{item.column3}</div>
+                              </div>
                             </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">35_GHIKZM</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">20_ABXYM</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">25_KHIKZM</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">40_LMNOPQ</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">15_DEFUVW</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">50_RSTUVW</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">45_XYZABC</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">10_KLMNOP</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">55_QRSTUV</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">60_ABCDEF</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">70_GHIJKL</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">65_MNOPQR</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">80_STUVWX</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">75_YZABCD</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">85_EFGHIJ</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">90_PQRSTU</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">95_VWXYZA</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">100_HIJKLM</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">110_NOPQRS</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">105_TUVWXY</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">120_ZABCDE</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">125_FGHJKL</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">130_MNOPST</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">140_QRSTUV</div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
 
                         <div className="data-column-3">
-                          <div className="header-cell">
+                          <div
+                            className="header-cell"
+                            onClick={() => handleSort('column4')}
+                            style={{ cursor: 'pointer' }}
+                          >
                             <div className="frame-9">
                               <div className="group-5">
                                 <IconComponentNode className="line-1" />
-                                <div className="label-3">Donec pede justo</div>
+                                <div className="label-3">
+                                  Donec pede justo
+                                  {sortConfig.key === 'column4' && (
+                                    <span style={{ marginLeft: '5px' }}>
+                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
 
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">ABXYZ</div>
+                          {currentData.map((item, index) => (
+                            <div
+                              key={`col4-${item.id}`}
+                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
+                            >
+                              <div className="div-wrapper-2">
+                                <div className="lorem-lipsum">{item.column4}</div>
+                              </div>
                             </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-2">0034759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">GHIKZM</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">LMNOPQ</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">XYZABC</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">4234559</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">MNOPQR</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">XYZABC</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">BBHAMS</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-2">0034779</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-2">0034779</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">NMABC</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-2">0034779</div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum-3">6234759</div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
 
                         <div className="data-column-4">
-                          <div className="header-cell">
+                          <div
+                            className="header-cell"
+                            onClick={() => handleSort('column4')}
+                            style={{ cursor: 'pointer' }}
+                          >
                             <div className="frame-9">
                               <div className="group-5">
                                 <IconComponentNode className="line-1" />
-                                <div className="label-3">Donec pede justo</div>
+                                <div className="label-3">
+                                  Donec pede justo
+                                  {sortConfig.key === 'column4' && (
+                                    <span style={{ marginLeft: '5px' }}>
+                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
 
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:05 AM
+                          {currentData.map((item, index) => (
+                            <div
+                              key={`col4-${item.id}`}
+                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
+                            >
+                              <div className="div-wrapper-2">
+                                <div className="lorem-lipsum">{item.column4}</div>
                               </div>
                             </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-11-25&nbsp;&nbsp;04:19:06 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-10-26&nbsp;&nbsp;03:09:08 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;05:09:15 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:05 PM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-24&nbsp;&nbsp;03:09:25 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-11-23&nbsp;&nbsp;03:09:07 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-10-21&nbsp;&nbsp;03:09:09 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;05:08:01 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:08 PM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-11-23&nbsp;&nbsp;03:09:05 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:05 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:15 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:55 PM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:35 PM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:05 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-20&nbsp;&nbsp;03:09:05 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-21&nbsp;&nbsp;08:09:05 PM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-27&nbsp;&nbsp;09:09:05 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;02:09:05 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-23&nbsp;&nbsp;03:09:05 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:05 PM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:05 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states-2">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-27&nbsp;&nbsp;03:09:05 AM
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="cell-states">
-                            <div className="div-wrapper-2">
-                              <div className="lorem-lipsum">
-                                2024-12-25&nbsp;&nbsp;03:09:05 AM
-                              </div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
                       </div>
 
@@ -1289,104 +754,81 @@ export default function ContentUpdated () {
           </div>
         </div>
 
+        {/* Pagination Controls */}
         <div className="pagination">
-          <div className="frame-10">
+          <div className="frame-new">
             <div className="frame-11">
-              <div className="frame-12">
-                <div className="text-wrapper-9">Displaying 1-25 of 352</div>
-
-                <div className="frame-13">
-                  <div className="text-wrapper-9">Show</div>
-
-                  <div className="default-label">
-                    <div className="div-3">
-                      <div className="div-4">
-                        <div className="text-wrapper-6">25</div>
-
-                        <div className="text-wrapper-10">Chevron-down</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="text-wrapper-9">per page</div>
-                </div>
+              <div className="pagination-info">
+                Showing {startIndex + 1} to {Math.min(endIndex, totalItems)} of {totalItems} entries
               </div>
             </div>
 
-            <div className="frame-14">
-              <div className="div-2">
-                <div className="component">
-                  <div className="frame-15">
-                    <div className="text-wrapper-11">Fast-backward</div>
-                  </div>
-                </div>
+            <div className="pagination-controls">
+              <button
+                className="pagination-btn"
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+                style={{
+                  opacity: currentPage === 1 ? 0.5 : 1,
+                  cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
+                }}
+              >
+                Previous
+              </button>
 
-                <div className="component-2">
-                  <div className="frame-15">
-                    <div className="text-wrapper-12">Step-backward</div>
-                  </div>
-                </div>
+              <div className="page-numbers">
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  let pageNum;
+                  if (totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNum = totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
 
-                <div className="component-3">
-                  <div className="frame-16">
-                    <div className="text-wrapper-13">1</div>
-                  </div>
-                </div>
-
-                <div className="component-4">
-                  <div className="frame-16">
-                    <div className="element">2</div>
-                  </div>
-                </div>
-
-                <div className="component-4">
-                  <div className="frame-16">
-                    <div className="element">3</div>
-                  </div>
-                </div>
-
-                <div className="component-5">
-                  <div className="frame-15">
-                    <div className="text-wrapper-14">step-forward</div>
-                  </div>
-                </div>
-
-                <div className="component-6">
-                  <div className="frame-17">
-                    <div className="text-wrapper-15">fast-forward</div>
-                  </div>
-                </div>
+                  return (
+                    <button
+                      key={pageNum}
+                      className={`page-number ${currentPage === pageNum ? 'active' : ''}`}
+                      onClick={() => handlePageChange(pageNum)}
+                      style={{
+                        backgroundColor: currentPage === pageNum ? '#007bff' : '#f8f9fa',
+                        color: currentPage === pageNum ? 'white' : '#333',
+                        border: '1px solid #dee2e6',
+                        padding: '8px 12px',
+                        margin: '0 2px',
+                        cursor: 'pointer',
+                        borderRadius: '4px'
+                      }}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                })}
               </div>
+
+              <button
+                className="pagination-btn"
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                style={{
+                  opacity: currentPage === totalPages ? 0.5 : 1,
+                  cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
+                }}
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
+
+
       </div>
 
-      <div className="component-7">
-        <div className="frame-18">
-          <div className="frame-19">
-            <div className="text-wrapper-16">Privacy Policy</div>
-          </div>
 
-          <div className="frame-19">
-            <div className="text-wrapper-16">Terms of Use</div>
-
-            <Line1_1 className="line-1-instance" />
-          </div>
-
-          <div className="frame-19">
-            <div className="text-wrapper-16">Contact Us</div>
-
-            <Line1_1 className="line-1-instance" />
-          </div>
-
-          <div className="frame-19">
-            <div className="text-wrapper-16">DTCC.com</div>
-
-            <Line1_1 className="line-1-instance" />
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
