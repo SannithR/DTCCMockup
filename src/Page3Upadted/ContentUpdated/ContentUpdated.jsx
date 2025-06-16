@@ -8,7 +8,9 @@ import { Line39 } from "../Line39/Line39";
 import { Line40 } from "../Line40/Line40";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
 import "./style.css";
+import Details from "../../Details/Details/Details";
 
 export default function ContentUpdated () {
   // State management
@@ -23,6 +25,10 @@ export default function ContentUpdated () {
   });
   const [selectedRows, setSelectedRows] = useState(new Set());
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
+  // Modal state management
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   // Keep the existing table data structure but make it paginated
   const allData = useMemo(() => {
@@ -149,6 +155,14 @@ export default function ContentUpdated () {
   };
 
   const handleRowSelect = (rowId) => {
+    // Find the row data for the selected row
+    const rowData = allData.find(item => item.id === rowId);
+    if (rowData) {
+      setSelectedRowData(rowData);
+      setIsModalOpen(true);
+    }
+
+    // Also maintain the original selection behavior for other functionality
     setSelectedRows(prev => {
       const newSet = new Set(prev);
       if (newSet.has(rowId)) {
@@ -183,6 +197,19 @@ export default function ContentUpdated () {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  // Modal handlers
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedRowData(null);
+  };
+
+  const handleModalBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleCloseModal();
+    }
+  };
+
   return (
     <div className="contant2">
 
@@ -200,14 +227,14 @@ export default function ContentUpdated () {
           <div className="div-3">
             <div className="row-2">
               <div className="top-label-dropdown">
-                <div className="frame-4">
+                <div className="frame-content2-4">
                   <div className="label-wrapper">
                     <div className="label">
-                      <div className="text-wrapper-5">Lorem Ipsum</div>
+                      <div className="text-wrapper-content2-5">Lorem Ipsum</div>
                     </div>
                   </div>
 
-                  <div className="frame-5" />
+                  <div className="frame-content2-5" />
                 </div>
 
                 <div className="div-4">
@@ -233,7 +260,7 @@ export default function ContentUpdated () {
                     ))}
                   </select>
 
-                  <div className="frame-6">
+                  <div className="frame-content2-6">
                     <KeyboardArrowDownIcon
                       style={{
                         color: '#666',
@@ -247,14 +274,14 @@ export default function ContentUpdated () {
               </div>
 
               <div className="top-label-dropdown">
-                <div className="frame-4">
+                <div className="frame-content2-4">
                   <div className="label-wrapper">
                     <div className="label">
-                      <div className="text-wrapper-5">Lorem Ipsum</div>
+                      <div className="text-wrapper-content2-5">Lorem Ipsum</div>
                     </div>
                   </div>
 
-                  <div className="frame-5" />
+                  <div className="frame-content2-5" />
                 </div>
 
                 <div className="div-4">
@@ -280,7 +307,7 @@ export default function ContentUpdated () {
                     ))}
                   </select>
 
-                  <div className="frame-6">
+                  <div className="frame-content2-6">
                     <KeyboardArrowDownIcon
                       style={{
                         color: '#666',
@@ -294,14 +321,14 @@ export default function ContentUpdated () {
               </div>
 
               <div className="top-label-dropdown">
-                <div className="frame-4">
+                <div className="frame-content2-4">
                   <div className="label-wrapper">
                     <div className="label">
-                      <div className="text-wrapper-5">Lorem Ipsum</div>
+                      <div className="text-wrapper-content2-5">Lorem Ipsum</div>
                     </div>
                   </div>
 
-                  <div className="frame-5" />
+                  <div className="frame-content2-5" />
                 </div>
 
                 <div className="div-4">
@@ -327,7 +354,7 @@ export default function ContentUpdated () {
                     ))}
                   </select>
 
-                  <div className="frame-6">
+                  <div className="frame-content2-6">
                     <KeyboardArrowDownIcon
                       style={{
                         color: '#666',
@@ -343,14 +370,14 @@ export default function ContentUpdated () {
 
             <div className="row-2">
               <div className="top-label-dropdown">
-                <div className="frame-4">
+                <div className="frame-content2-4">
                   <div className="label-wrapper">
                     <div className="label">
-                      <div className="text-wrapper-5">Lorem Ipsum</div>
+                      <div className="text-wrapper-content2-5">Lorem Ipsum</div>
                     </div>
                   </div>
 
-                  <div className="frame-5" />
+                  <div className="frame-content2-5" />
                 </div>
 
                 <div className="div-4">
@@ -376,7 +403,7 @@ export default function ContentUpdated () {
                     ))}
                   </select>
 
-                  <div className="frame-6">
+                  <div className="frame-content2-6">
                     <KeyboardArrowDownIcon
                       style={{
                         color: '#666',
@@ -388,7 +415,7 @@ export default function ContentUpdated () {
                   </div>
                 </div>
 
-                <div className="help-text-wrapper">
+                <div className="help-text-wrapper-content2">
                   <div className="help-text">Advanced</div>
                 </div>
               </div>
@@ -398,18 +425,18 @@ export default function ContentUpdated () {
                   <div className="input-box">
                     <div className="default">
                       <div className="input-box-top-label">
-                        <div className="label-frame">
+                        <div className="label-frame-content2">
                           <div className="label-2">
-                            <p className="text-wrapper-5">
+                            <p className="text-wrapper-content2-5">
                               Lorem Ipsum Aenean leo ligula
                             </p>
 
-                            <div className="text-wrapper-7">*</div>
+                            <div className="text-wrapper-content2-7">*</div>
                           </div>
                         </div>
 
-                        <div className="frame-wrapper">
-                          <div className="frame-7">
+                        <div className="frame-content2-wrapper">
+                          <div className="frame-content2-7">
                             <input
                               className="search-input"
                               placeholder="Search"
@@ -479,7 +506,7 @@ export default function ContentUpdated () {
             <div className="overlap-wrapper">
               <div className="overlap">
                 <div className="action-bar">
-                  <div className="frame-8">
+                  <div className="frame-content2-8">
                     <div className="element-to-of">Total Items Found: {totalItems}</div>
                   </div>
 
@@ -497,7 +524,7 @@ export default function ContentUpdated () {
                       }}
                     >
                       <div className="div-wrapper-2">
-                        <div className="text-wrapper-8">COPY</div>
+                        <div className="text-wrapper-content2-8">COPY</div>
                       </div>
                     </button>
 
@@ -515,7 +542,7 @@ export default function ContentUpdated () {
                       }}
                     >
                       <div className="div-wrapper-2">
-                        <div className="text-wrapper-8">DELETE</div>
+                        <div className="text-wrapper-content2-8">DELETE</div>
                       </div>
                     </button>
                   </div>
@@ -583,7 +610,7 @@ export default function ContentUpdated () {
                             onClick={() => handleSort('column1')}
                             style={{ cursor: 'pointer' }}
                           >
-                            <div className="frame-9">
+                            <div className="frame-content2-9">
                               <div className="group-3">
                                 <IconComponentNode className="line-1" />
                                 <div className="label-3">
@@ -616,7 +643,7 @@ export default function ContentUpdated () {
                             onClick={() => handleSort('column2')}
                             style={{ cursor: 'pointer' }}
                           >
-                            <div className="frame-9">
+                            <div className="frame-content2-9">
                               <div className="group-4">
                                 <IconComponentNode className="line-1" />
                                 <div className="label-3">
@@ -649,7 +676,7 @@ export default function ContentUpdated () {
                             onClick={() => handleSort('column3')}
                             style={{ cursor: 'pointer' }}
                           >
-                            <div className="frame-9">
+                            <div className="frame-content2-9">
                               <div className="group-5">
                                 <IconComponentNode className="line-1" />
                                 <div className="label-3">
@@ -682,7 +709,7 @@ export default function ContentUpdated () {
                             onClick={() => handleSort('column4')}
                             style={{ cursor: 'pointer' }}
                           >
-                            <div className="frame-9">
+                            <div className="frame-content2-9">
                               <div className="group-5">
                                 <IconComponentNode className="line-1" />
                                 <div className="label-3">
@@ -715,7 +742,7 @@ export default function ContentUpdated () {
                             onClick={() => handleSort('column4')}
                             style={{ cursor: 'pointer' }}
                           >
-                            <div className="frame-9">
+                            <div className="frame-content2-9">
                               <div className="group-5">
                                 <IconComponentNode className="line-1" />
                                 <div className="label-3">
@@ -756,8 +783,8 @@ export default function ContentUpdated () {
 
         {/* Pagination Controls */}
         <div className="pagination">
-          <div className="frame-new">
-            <div className="frame-11">
+          <div className="frame-content2-new">
+            <div className="frame-content2-11">
               <div className="pagination-info">
                 Showing {startIndex + 1} to {Math.min(endIndex, totalItems)} of {totalItems} entries
               </div>
@@ -825,6 +852,22 @@ export default function ContentUpdated () {
           </div>
         </div>
 
+        {/* Details Modal */}
+        {isModalOpen && selectedRowData && (
+          <div className="modal-overlay" onClick={handleModalBackdropClick}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h2 className="modal-title">Details for {selectedRowData.column1}</h2>
+                <button className="modal-close-btn" onClick={handleCloseModal}>
+                  <CloseIcon style={{ fontSize: '24px', color: '#616161' }} />
+                </button>
+              </div>
+              <div className="modal-body">
+                <Details />
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
 
