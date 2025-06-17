@@ -11,6 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import "./style.css";
 import Details from "../../Details/Details/Details";
+import CopyDialogueBox from "../../Dialogue/CopyDialogueBox/CopyDialogueBox";
 
 export default function ContentUpdated () {
   // State management
@@ -29,6 +30,7 @@ export default function ContentUpdated () {
   // Modal state management
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const [isCopyDialogOpen, setIsCopyDialogOpen] = useState(false);
 
   // Keep the existing table data structure but make it paginated
   const allData = useMemo(() => {
@@ -143,8 +145,8 @@ export default function ContentUpdated () {
   };
 
   const handleSearchClick = () => {
-    // Search functionality is already handled by the input change
-    // This could trigger additional search actions if needed
+    // Open the CopyDialogueBox modal
+    setIsCopyDialogOpen(true);
   };
 
   const handleSort = (columnKey) => {
@@ -207,6 +209,17 @@ export default function ContentUpdated () {
   const handleModalBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       handleCloseModal();
+    }
+  };
+
+  // CopyDialogueBox modal handlers
+  const handleCloseCopyDialog = () => {
+    setIsCopyDialogOpen(false);
+  };
+
+  const handleCopyDialogBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleCloseCopyDialog();
     }
   };
 
@@ -864,6 +877,23 @@ export default function ContentUpdated () {
               </div>
               <div className="modal-body">
                 <Details />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* CopyDialogueBox Modal */}
+        {isCopyDialogOpen && (
+          <div className="modal-overlay" onClick={handleCopyDialogBackdropClick}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h2 className="modal-title"> Lookup</h2>
+                <button className="modal-close-btn" onClick={handleCloseCopyDialog}>
+                  <CloseIcon style={{ fontSize: '24px', color: '#616161' }} />
+                </button>
+              </div>
+              <div className="modal-body">
+                <CopyDialogueBox />
               </div>
             </div>
           </div>

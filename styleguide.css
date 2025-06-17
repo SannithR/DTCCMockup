@@ -1,6 +1,61 @@
 /* This snippet is injected by Anima. Feel free to delete this comment. */
 
 :root {
+  --button-medium-font-family: "Roboto", Helvetica;
+  --button-medium-font-size: 14px;
+  --button-medium-font-style: normal;
+  --button-medium-font-weight: 400;
+  --button-medium-letter-spacing: 0px;
+  --button-medium-line-height: normal;
+  --button-small-font-family: "Roboto", Helvetica;
+  --button-small-font-size: 12px;
+  --button-small-font-style: normal;
+  --button-small-font-weight: 400;
+  --button-small-letter-spacing: 0px;
+  --button-small-line-height: 14px;
+  --footer-hyperlink-font-family: "Roboto", Helvetica;
+  --footer-hyperlink-font-size: 12px;
+  --footer-hyperlink-font-style: normal;
+  --footer-hyperlink-font-weight: 400;
+  --footer-hyperlink-letter-spacing: 0px;
+  --footer-hyperlink-line-height: normal;
+  --general-default-body-text-font-family: "Roboto", Helvetica;
+  --general-default-body-text-font-size: 14px;
+  --general-default-body-text-font-style: normal;
+  --general-default-body-text-font-weight: 400;
+  --general-default-body-text-letter-spacing: 0px;
+  --general-default-body-text-line-height: normal;
+  --general-form-elements-medium-font-family: "Roboto", Helvetica;
+  --general-form-elements-medium-font-size: 13px;
+  --general-form-elements-medium-font-style: normal;
+  --general-form-elements-medium-font-weight: 400;
+  --general-form-elements-medium-letter-spacing: 0px;
+  --general-form-elements-medium-line-height: normal;
+  --general-medium-text-font-family: "Roboto", Helvetica;
+  --general-medium-text-font-size: 16px;
+  --general-medium-text-font-style: normal;
+  --general-medium-text-font-weight: 400;
+  --general-medium-text-letter-spacing: 0px;
+  --general-medium-text-line-height: normal;
+  --general-small-text-font-family: "Roboto", Helvetica;
+  --general-small-text-font-size: 12px;
+  --general-small-text-font-style: normal;
+  --general-small-text-font-weight: 400;
+  --general-small-text-letter-spacing: 0px;
+  --general-small-text-line-height: normal;
+  --model-header-font-family: "Roboto", Helvetica;
+  --model-header-font-size: 18px;
+  --model-header-font-style: normal;
+  --model-header-font-weight: 400;
+  --model-header-letter-spacing: 0px;
+  --model-header-line-height: normal;
+}
+
+/* The end of the injected content. */
+
+/* This snippet is injected by Anima. Feel free to delete this comment. */
+
+:root {
   --application-header-font-family: "Roboto", Helvetica;
   --application-header-font-size: 20px;
   --application-header-font-style: normal;

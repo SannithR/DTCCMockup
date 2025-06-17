@@ -1,0 +1,272 @@
+.copy-dialogue-box {
+  align-items: flex-end;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #bdbdbd;
+  display: flex;
+  flex-direction: column;
+  /* min-height: 100vh; */
+  position: relative;
+}
+
+.copy-dialogue-box .frame-dialogue {
+  align-items: flex-start;
+  align-self: stretch;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #e0e0e0;
+  display: flex;
+  gap: 564px;
+  height: 53px;
+  padding: 16px 20px;
+  position: relative;
+  width: 100%;
+  display:none;
+}
+
+.copy-dialogue-box .text-wrapper {
+  color: #0e5447;
+  font-family: var(--model-header-font-family);
+  font-size: var(--model-header-font-size);
+  font-style: var(--model-header-font-style);
+  font-weight: var(--model-header-font-weight);
+  letter-spacing: var(--model-header-letter-spacing);
+  line-height: var(--model-header-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  width: 338px;
+}
+
+.copy-dialogue-box .asset {
+  height: 20px;
+  left: 508px;
+  position: absolute;
+  top: 16px;
+  width: 20px;
+}
+
+.copy-dialogue-box .layer {
+  height: 20px;
+  left: 4px;
+  position: relative;
+  top: -1px;
+  width: 15px;
+}
+
+.copy-dialogue-box .div {
+  color: #616161;
+  font-family: "Font Awesome 5 Pro-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  white-space: nowrap;
+}
+
+.copy-dialogue-box .frame-dialogue-2 {
+  align-items: center;
+  align-self: stretch;
+  /* display: flex; */
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 12px;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  width: 100%;
+}
+
+.copy-dialogue-box .frame-dialogue-3 {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+  position: relative;
+  width: 100%;
+}
+
+.copy-dialogue-box .top-label-dropdown {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 5px;
+  position: relative;
+}
+
+.copy-dialogue-box .frame-dialogue-4 {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  position: relative;
+}
+
+.copy-dialogue-box .label-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  width: 44px;
+}
+
+.copy-dialogue-box .label {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 2px;
+  position: relative;
+}
+
+.copy-dialogue-box .default {
+  color: #212121;
+  font-family: var(--general-form-elements-medium-font-family);
+  font-size: var(--general-form-elements-medium-font-size);
+  font-style: var(--general-form-elements-medium-font-style);
+  font-weight: var(--general-form-elements-medium-font-weight);
+  letter-spacing: var(--general-form-elements-medium-letter-spacing);
+  line-height: var(--general-form-elements-medium-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.copy-dialogue-box .frame-dialogue-5 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+  width: 16px;
+}
+
+.copy-dialogue-box .frame-dialogue-6 {
+  align-items: center;
+  align-self: stretch;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #bdbdbd;
+  border-radius: 4px;
+  display: flex;
+  height: 36px;
+  justify-content: space-between;
+  padding: 10px 12px;
+  position: relative;
+  width: 100%;
+}
+
+.copy-dialogue-box .select {
+  color: #616161;
+  font-family: var(--general-default-body-text-font-family);
+  font-size: var(--general-default-body-text-font-size);
+  font-style: var(--general-default-body-text-font-style);
+  font-weight: var(--general-default-body-text-font-weight);
+  letter-spacing: var(--general-default-body-text-letter-spacing);
+  line-height: var(--general-default-body-text-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.copy-dialogue-box .frame-dialogue-7 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  width: 12px;
+}
+
+.copy-dialogue-box .frame-dialogue-8 {
+  align-items: flex-start;
+  align-self: stretch;
+  border-color: #e0e0e0;
+  border-top-style: solid;
+  border-top-width: 1px;
+  display: flex;
+  gap: 12px;
+  height: 64px;
+  padding: 16px 20px;
+  position: relative;
+  width: 100%;
+}
+
+.copy-dialogue-box .componentdialogue {
+  align-items: center;
+  background-color: #2c7c6d;
+  border-radius: 20px;
+  display: flex;
+  gap: 8px;
+  height: 32px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px 16px;
+  position: relative;
+  width: 80px;
+}
+
+.copy-dialogue-box .div-wrapperdialogue {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+}
+
+.copy-dialogue-box .PRIMARYDIALOGUE {
+  color: #ffffff;
+  font-family: var(--button-small-font-family);
+  font-size: var(--button-small-font-size);
+  font-style: var(--button-small-font-style);
+  font-weight: var(--button-small-font-weight);
+  letter-spacing: var(--button-small-letter-spacing);
+  line-height: var(--button-small-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.copy-dialogue-box .button-dialogue {
+  all: unset;
+  align-items: center;
+  background-color: #e9f5f2;
+  border: 1px solid;
+  border-color: #2c7c6d;
+  border-radius: 18px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 6px;
+  height: 32px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px 16px;
+  position: relative;
+  width: 80px;
+}
+
+.copy-dialogue-box .SECONDARY {
+  color: #06231e;
+  font-family: var(--button-small-font-family);
+  font-size: var(--button-small-font-size);
+  font-style: var(--button-small-font-style);
+  font-weight: var(--button-small-font-weight);
+  letter-spacing: var(--button-small-letter-spacing);
+  line-height: var(--button-small-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
