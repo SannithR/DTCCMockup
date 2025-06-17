@@ -9,6 +9,7 @@ import { Line40 } from "../Line40/Line40";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import "./style.css";
 import Details from "../../Details/Details/Details";
 import CopyDialogueBox from "../../Dialogue/CopyDialogueBox/CopyDialogueBox";
@@ -232,7 +233,15 @@ export default function ContentUpdated () {
           <div className="text">PAGE TITLE 00123</div>
 
           <div className="info-icon">
-            <div className="info-circle">question-circle</div>
+            <div className="info-circle">
+              <HelpOutlineIcon
+                style={{
+                  color: '#666',
+                  fontSize: '20px',
+                  cursor: 'pointer'
+                }}
+              />
+            </div>
           </div>
         </div>
 

@@ -10,9 +10,16 @@ import { Line33 } from "../Line33/Line33";
 import { Line36 } from "../Line36/Line36";
 import { Line37 } from "../Line37/Line37";
 import { Polygon1 } from "../Polygon1/Polygon1";
+import {
+  HelpOutline as HelpIcon,
+  Menu as MenuIcon,
+  AccountCircle as AccountIcon,
+  Logout as LogoutIcon
+} from '@mui/icons-material';
 import "./style.css";
 
 import ContentUpdated from "../../Page3Upadted/ContentUpdated/ContentUpdated";
+import ThirdNavigation from "../../ThirdNavigation/ThirdNavigation/ThirdNavigation";
 
 export default function Content () {
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,22 +44,26 @@ export default function Content () {
                
 
                   <button className="icon-button" title="Help">
-                    <div className="text-wrapper-2">❓</div>
+                    <HelpIcon sx={{ color: '#ffffff', fontSize: 20 }} />
                   </button>
 
                   <div className="menu">
                     <div className="menu-2">
-                      <div className="th"></div>
+                      <MenuIcon sx={{ color: '#ffffff', fontSize: 20 }} />
                     </div>
                   </div>
 
                   <div className="div-wrapper">
-                    <div className="text-wrapper-2"></div>
+                    <div className="text-wrapper-2">
+                      <AccountIcon sx={{ color: '#ffffff', fontSize: 20 }} />
+                    </div>
                   </div>
 
                   <div className="logout">
                     <div className="logout-2">
-                      <div className="text-wrapper-2"></div>
+                      <div className="text-wrapper-2">
+                        <LogoutIcon sx={{ color: '#ffffff', fontSize: 20 }} />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -688,17 +699,7 @@ export default function Content () {
 
       {/* Content for NAVIGATION THREE */}
       {activeTab === "NAVIGATION THREE" && (
-        <div className="navigation-three-content">
-          <div className="simple-alerts">
-            <div className="a-simple-info-alert-wrapper">
-              <div className="a-simple-info-alert">Navigation Three Content</div>
-            </div>
-          </div>
-          <div style={{ padding: '40px', textAlign: 'center' }}>
-            <h2>Navigation Three</h2>
-            <p>This is the content for Navigation Three tab. You can add your specific components here.</p>
-          </div>
-        </div>
+        <ThirdNavigation />
       )}
 
       {/* Footer - appears on all tabs */}

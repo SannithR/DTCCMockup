@@ -1,0 +1,114 @@
+.alerts {
+  align-items: flex-start;
+  display: inline-flex;
+  position: relative;
+}
+
+.alerts .page-level-alert {
+  align-items: center;
+  background-color: #f2f9ec;
+  border: 1px solid;
+  border-color: #007e00;
+  border-radius: 4px;
+  display: flex;
+  gap: 10px;
+  padding: 8px 20px;
+  position: relative;
+  width: 1280px;
+}
+
+.alerts .frame {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 4px;
+  justify-content: center;
+  padding: 0px 40px;
+  position: relative;
+}
+
+.alerts .success-title {
+  color: #212121;
+  font-family: var(--heading-h4-font-family);
+  font-size: var(--heading-h4-font-size);
+  font-style: var(--heading-h4-font-style);
+  font-weight: var(--heading-h4-font-weight);
+  letter-spacing: var(--heading-h4-letter-spacing);
+  line-height: var(--heading-h4-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.alerts .a-simple-primary {
+  align-self: stretch;
+  color: #616161;
+  font-family: var(--general-modal-body-font-family);
+  font-size: var(--general-modal-body-font-size);
+  font-style: var(--general-modal-body-font-style);
+  font-weight: var(--general-modal-body-font-weight);
+  letter-spacing: var(--general-modal-body-letter-spacing);
+  line-height: var(--general-modal-body-line-height);
+  position: relative;
+}
+
+.alerts .group-wrapper {
+  align-items: center;
+  display: inline-flex;
+  gap: 10px;
+  left: 0;
+  padding: 2px 0px;
+  position: absolute;
+  top: 6px;
+}
+
+.alerts .group {
+  height: 24px;
+  margin-right: -2.00px;
+  position: relative;
+  width: 26px;
+}
+
+.alerts .text-wrapper {
+  color: #007e00;
+  font-family: "Font Awesome 5 Pro-Regular", Helvetica;
+  font-size: 24px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}
+
+.alerts .asset {
+  height: 11.32px;
+  overflow: hidden;
+  position: relative;
+  width: 11.32px;
+}
+
+.alerts .layer {
+  height: 18px;
+  left: -1px;
+  position: relative;
+  top: -3px;
+  width: 14px;
+}
+
+.alerts .div {
+  color: #616161;
+  font-family: "Font Awesome 5 Pro-Regular", Helvetica;
+  font-size: 18px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+}

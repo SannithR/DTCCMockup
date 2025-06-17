@@ -1,0 +1,197 @@
+.modals {
+  align-items: flex-start;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #bdbdbd;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 294px;
+  justify-content: center;
+  position: relative;
+  width: 548px;
+}
+
+.modals .frame {
+  align-items: flex-start;
+  align-self: stretch;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #e0e0e0;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 564px;
+  padding: 16px 20px;
+  position: relative;
+  width: 100%;
+}
+
+.modals .text-wrapper {
+  color: #0e5447;
+  font-family: var(--model-header-font-family);
+  font-size: var(--model-header-font-size);
+  font-style: var(--model-header-font-style);
+  font-weight: var(--model-header-font-weight);
+  letter-spacing: var(--model-header-letter-spacing);
+  line-height: var(--model-header-line-height);
+  margin-right: -212.00px;
+  margin-top: -1.00px;
+  position: relative;
+  width: 720px;
+}
+
+.modals .asset {
+  height: 20px;
+  left: 508px;
+  position: absolute;
+  top: 16px;
+  width: 20px;
+}
+
+.modals .layer {
+  height: 20px;
+  left: 4px;
+  position: relative;
+  top: -1px;
+  width: 15px;
+}
+
+.modals .div {
+  color: #616161;
+  font-family: "Font Awesome 5 Pro-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  white-space: nowrap;
+}
+
+.modals .duis-leo-sed-wrapper {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 15px;
+  justify-content: center;
+  min-height: 70px;
+  padding: 0px 20px;
+  position: relative;
+  width: 100%;
+}
+
+.modals .duis-leo-sed {
+  color: #616161;
+  flex: 1;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 16px;
+  margin-top: -1.00px;
+  position: relative;
+}
+
+.modals .span {
+  color: #616161;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.modals .text-wrapper-2 {
+  font-family: var(--general-modal-body-font-family);
+  font-size: var(--general-modal-body-font-size);
+  font-style: var(--general-modal-body-font-style);
+  font-weight: var(--general-modal-body-font-weight);
+  letter-spacing: var(--general-modal-body-letter-spacing);
+  line-height: var(--general-modal-body-line-height);
+}
+
+.modals .frame-2 {
+  align-items: flex-start;
+  align-self: stretch;
+  border-color: #e0e0e0;
+  border-top-style: solid;
+  border-top-width: 1px;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+  padding: 16px 20px;
+  position: relative;
+  width: 100%;
+}
+
+.modals .component {
+  align-items: center;
+  background-color: #2c7c6d;
+  border-radius: 20px;
+  display: flex;
+  gap: 8px;
+  height: 32px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px 16px;
+  position: relative;
+  width: 80px;
+}
+
+.modals .div-wrapper {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+}
+
+.modals .PRIMARY {
+  color: #ffffff;
+  font-family: var(--button-small-font-family);
+  font-size: var(--button-small-font-size);
+  font-style: var(--button-small-font-style);
+  font-weight: var(--button-small-font-weight);
+  letter-spacing: var(--button-small-letter-spacing);
+  line-height: var(--button-small-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.modals .button {
+  all: unset;
+  align-items: center;
+  background-color: #e9f5f2;
+  border: 1px solid;
+  border-color: #2c7c6d;
+  border-radius: 18px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 6px;
+  height: 32px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px 16px;
+  position: relative;
+  width: 80px;
+}
+
+.modals .SECONDARY {
+  color: #06231e;
+  font-family: var(--button-small-font-family);
+  font-size: var(--button-small-font-size);
+  font-style: var(--button-small-font-style);
+  font-weight: var(--button-small-font-weight);
+  letter-spacing: var(--button-small-letter-spacing);
+  line-height: var(--button-small-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
