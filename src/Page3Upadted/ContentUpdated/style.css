@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 20px;
   position: relative;
-  width: 1280px;
+  /* width: 1280px; */
 }
 
 .contant2 .header {
@@ -193,7 +193,7 @@
   height: 41px;
   padding: 0px 48px;
   position: relative;
-  width: 1280px;
+  /* width: 1280px; */
 }
 
 .contant2 .tab-item {
@@ -339,14 +339,15 @@
 }
 
 .contant2 .main-contant2 {
-  /* align-items: flex-start; */
-  align-items: center;
+  align-items: flex-start;
+  /* align-items: center; */
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
   gap: 20px;
   position: relative;
   width: 100%;
+  padding-left: 36.5px;
 }
 
 .contant2 .title-2 {
@@ -414,7 +415,7 @@
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 5px;
+  gap: 20px;
   position: relative;
   width: 100%;
 }
@@ -476,6 +477,7 @@
   position: relative;
   white-space: nowrap;
   width: fit-contant2;
+  margin:0px
 }
 
 .contant2 .frame-content2-5 {
@@ -794,7 +796,7 @@
   height: 48px;
   left: 0;
   position: absolute;
-  top: 0;
+  top: -76px;
   width: 1184px;
 }
 
@@ -1651,7 +1653,7 @@
   background-color: #f5ead9;
   flex: 0 0 auto;
   position: relative;
-  width: 1280px;
+  /* width: 1280px; */
 }
 
 .contant2 .frame-content2-18 {

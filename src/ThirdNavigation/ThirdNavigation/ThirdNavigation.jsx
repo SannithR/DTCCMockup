@@ -103,6 +103,15 @@ export default function ThirdNavigation() {
                   },
                   '& .MuiSvgIcon-root': {
                     color: '#0e5447',
+                  },
+                  '& .MuiSelect-select': {
+                    fontFamily: 'Roboto',
+                    fontWeight: 400,
+                    fontSize: '14px',
+                    lineHeight: '100%',
+                    letterSpacing: '0%',
+                    verticalAlign: 'middle',
+                    color: '#9E9E9E',
                   }
                 }}
               >
@@ -143,6 +152,15 @@ export default function ThirdNavigation() {
                   '&.Mui-focused fieldset': {
                     borderColor: '#0e5447',
                   },
+                },
+                '& .MuiOutlinedInput-input': {
+                  fontFamily: 'Roboto',
+                  fontWeight: 400,
+                  fontSize: '14px',
+                  lineHeight: '100%',
+                  letterSpacing: '0%',
+                  verticalAlign: 'middle',
+                  color: '#9E9E9E',
                 }
               }}
               size="small"
@@ -178,6 +196,15 @@ export default function ThirdNavigation() {
                   '&.Mui-focused fieldset': {
                     borderColor: '#0e5447',
                   },
+                },
+                '& .MuiOutlinedInput-input': {
+                  fontFamily: 'Roboto',
+                  fontWeight: 400,
+                  fontSize: '14px',
+                  lineHeight: '100%',
+                  letterSpacing: '0%',
+                  verticalAlign: 'middle',
+                  color: '#9E9E9E',
                 }
               }}
               size="small"
@@ -185,7 +212,8 @@ export default function ThirdNavigation() {
           </div>
 
           <div className="group-2">
-            <Typography
+          <div style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}>
+  <Typography
               variant="body1"
               sx={{
                 color: '#212121',
@@ -208,7 +236,8 @@ export default function ThirdNavigation() {
               }}
             >
               (Select at least one)
-            </Typography>
+            </Typography></div>
+          
 
             <FormGroup row sx={{ gap: '20px' }}>
               <FormControlLabel
@@ -335,6 +364,15 @@ export default function ThirdNavigation() {
                           '&.Mui-focused fieldset': {
                             borderColor: '#0e5447',
                           },
+                        },
+                        '& .MuiOutlinedInput-input': {
+                          fontFamily: 'Roboto',
+                          fontWeight: 400,
+                          fontSize: '14px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          verticalAlign: 'middle',
+                          color: '#9E9E9E',
                         }
                       }}
                     />
@@ -374,6 +412,15 @@ export default function ThirdNavigation() {
                   '&.Mui-focused fieldset': {
                     borderColor: '#0e5447',
                   },
+                },
+                '& .MuiOutlinedInput-input': {
+                  fontFamily: 'Roboto',
+                  fontWeight: 400,
+                  fontSize: '14px',
+                  lineHeight: '100%',
+                  letterSpacing: '0%',
+                  verticalAlign: 'middle',
+                  color: '#9E9E9E',
                 }
               }}
             />

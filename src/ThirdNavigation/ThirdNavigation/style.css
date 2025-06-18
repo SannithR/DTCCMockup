@@ -1,10 +1,11 @@
 .frame-thirdnavigation {
-  /* align-items: flex-start; */
-  align-items: center;
+  align-items: flex-start;
+  /* align-items: center; */
   display: inline-flex;
   flex-direction: column;
   gap: 20px;
   position: relative;
+  padding-left: 36.5px;
 }
 
 .frame-thirdnavigation .thirdnavigation {
@@ -79,7 +80,7 @@
   gap: 5px;
   left: 19px;
   position: absolute;
-  top: 183px;
+  top: 155px;
   width: 368px;
 }
 
@@ -205,7 +206,7 @@
   flex-direction: column;
   left: 19px;
   position: absolute;
-  top: 250px;
+  top: 230px;
   width: 368px;
 }
 
@@ -336,7 +337,7 @@
   flex-direction: column;
   left: 407px;
   position: absolute;
-  top: 250px;
+  top: 230px;
   width: 368px;
 }
 
@@ -510,7 +511,7 @@
   height: 322px;
   left: 0;
   position: absolute;
-  top: 24px;
+  top: 0px;
   width: 1144px;
 }
 
@@ -582,7 +583,7 @@
   height: 3px;
   left: 1134px;
   position: absolute;
-  top: 315px;
+  top: 300px;
   transform: rotate(-45deg);
   width: 10px;
 }

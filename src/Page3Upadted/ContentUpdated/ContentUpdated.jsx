@@ -503,7 +503,7 @@ export default function ContentUpdated () {
                       style={{
                         position: 'absolute',
                         right: '12px',
-                        color: '#666',
+                        color: 'white',
                         fontSize: '20px',
                         cursor: 'pointer'
                       }}
@@ -517,7 +517,7 @@ export default function ContentUpdated () {
 
           <button className="button" onClick={handleSearchClick}>
             <div className="div-wrapper-2">
-              <SearchIcon style={{ marginRight: '8px', fontSize: '16px' }} />
+            
               <div className="PRIMARY">FIND</div>
             </div>
           </button>

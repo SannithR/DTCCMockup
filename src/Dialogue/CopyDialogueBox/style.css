@@ -79,6 +79,7 @@
   padding: 24px;
   position: relative;
   width: 100%;
+  display: flex;
 }
 
 .copy-dialogue-box .frame-dialogue-3 {
@@ -269,4 +270,36 @@
   position: relative;
   white-space: nowrap;
   width: fit-content;
+}
+
+/* Input field styles to maintain the same appearance */
+.copy-dialogue-box .input-field {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  color: #212121;
+  font-family: var(--general-default-body-text-font-family);
+  font-size: var(--general-default-body-text-font-size);
+  font-style: var(--general-default-body-text-font-style);
+  font-weight: var(--general-default-body-text-font-weight);
+  letter-spacing: var(--general-default-body-text-letter-spacing);
+  line-height: var(--general-default-body-text-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.copy-dialogue-box .input-field::placeholder {
+  color: #616161;
+  font-family: var(--general-default-body-text-font-family);
+  font-size: var(--general-default-body-text-font-size);
+  font-style: var(--general-default-body-text-font-style);
+  font-weight: var(--general-default-body-text-font-weight);
+  letter-spacing: var(--general-default-body-text-letter-spacing);
+  line-height: var(--general-default-body-text-line-height);
+}
+
+.copy-dialogue-box .input-field:focus {
+  color: #212121;
 }
