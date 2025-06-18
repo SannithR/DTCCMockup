@@ -817,10 +817,6 @@ export default function ContentUpdated () {
                 className="pagination-btn"
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
-                style={{
-                  opacity: currentPage === 1 ? 0.5 : 1,
-                  cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
-                }}
               >
                 Previous
               </button>
@@ -843,15 +839,6 @@ export default function ContentUpdated () {
                       key={pageNum}
                       className={`page-number ${currentPage === pageNum ? 'active' : ''}`}
                       onClick={() => handlePageChange(pageNum)}
-                      style={{
-                        backgroundColor: currentPage === pageNum ? '#007bff' : '#f8f9fa',
-                        color: currentPage === pageNum ? 'white' : '#333',
-                        border: '1px solid #dee2e6',
-                        padding: '8px 12px',
-                        margin: '0 2px',
-                        cursor: 'pointer',
-                        borderRadius: '4px'
-                      }}
                     >
                       {pageNum}
                     </button>
@@ -863,10 +850,6 @@ export default function ContentUpdated () {
                 className="pagination-btn"
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                style={{
-                  opacity: currentPage === totalPages ? 0.5 : 1,
-                  cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
-                }}
               >
                 Next
               </button>

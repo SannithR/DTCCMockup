@@ -35,7 +35,7 @@ export default function Content () {
               <div className="text-wrapper">ABCD</div>
             </div>
 
-            <Line1 className="line" />
+            <Line1 className="line-header" />
             <div className="lorem-ipsum">LOREM IPSUM</div>
 
             <div className="tool-bar-icons">

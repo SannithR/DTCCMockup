@@ -339,12 +339,14 @@
 }
 
 .contant2 .main-contant2 {
-  align-items: flex-start;
-  display: inline-flex;
+  /* align-items: flex-start; */
+  align-items: center;
+  display: flex;
   flex: 0 0 auto;
   flex-direction: column;
   gap: 20px;
   position: relative;
+  width: 100%;
 }
 
 .contant2 .title-2 {
@@ -763,18 +765,22 @@
 }
 
 .contant2 .container {
-  height: 839px;
+  min-height: 400px;
+  height: auto;
   position: relative;
   width: 1184px;
+  margin-bottom: 0;
 }
 
 .contant2 .overlap {
-  height: 839px;
+  min-height: 400px;
+  height: auto;
   position: relative;
 }
 
 .contant2 .overlap-wrapper {
-  height: 839px;
+  min-height: 400px;
+  height: auto;
   left: 0;
   position: absolute;
   top: 0;
@@ -874,19 +880,23 @@
 }
 
 .contant2 .container-wrapper {
-  height: 810px;
+  min-height: 400px;
+  height: auto;
   left: 0;
-  position: absolute;
-  top: 29px;
+  position: relative;
+  top: 0px;
   width: 1184px;
+  margin-top: 29px;
 }
 
 .contant2 .overlap-group-wrapper {
-  height: 810px;
+  min-height: 400px;
+  height: auto;
 }
 
 .contant2 .overlap-group {
-  height: 810px;
+  min-height: 400px;
+  height: auto;
   position: relative;
   width: 1184px;
 }
@@ -896,12 +906,12 @@
   left: 0 !important;
   object-fit: cover !important;
   position: absolute !important;
-  top: 809px !important;
+  bottom: 0 !important;
   width: 1184px !important;
 }
 
 .contant2 .line-39 {
-  height: 810px !important;
+  height: 100% !important;
   left: 1183px !important;
   object-fit: cover !important;
   position: absolute !important;
@@ -910,26 +920,31 @@
 }
 
 .contant2 .container-2 {
-  height: 792px;
+  min-height: 400px;
+  height: auto;
   left: 0;
-  position: absolute;
-  top: 47px;
+  position: relative;
+  top: 0px;
   width: 1184px;
+  margin-top: 47px;
 }
 
 .contant2 .overlap-2 {
-  height: 792px;
+  min-height: 400px;
+  height: auto;
   position: relative;
 }
 
 .contant2 .data-grids {
   border: 1px solid;
   border-color: #000000;
-  height: 790px;
+  min-height: 400px;
+  height: auto;
   left: 0;
-  position: absolute;
-  top: 1px;
+  position: relative;
+  top: 0px;
   width: 1184px;
+  margin-top: 1px;
 }
 
 .contant2 .grids-data-grid {
@@ -946,7 +961,8 @@
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  height: 790px;
+  min-height: 400px;
+  height: auto;
   position: relative;
   width: 100%;
 }
@@ -977,11 +993,12 @@
 }
 
 .contant2 .checkbox-column {
-  align-items: flex-start;
-  display: inline-flex;
+  align-items: center;
+  display: flex;
   flex: 0 0 auto;
   flex-direction: column;
   position: relative;
+  width: 52px;
 }
 
 .contant2 .checkbox {
@@ -990,12 +1007,14 @@
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-color: #bdbdbd;
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   flex: 0 0 auto;
   gap: 4px;
-  min-height: 30px;
+  min-height: 40px;
   padding: 12px 18px;
   position: relative;
+  width: 52px;
 }
 
 .contant2 .rectangle {
@@ -1011,23 +1030,27 @@
 .contant2 .checkbox-states {
   align-items: center;
   background-color: #f5f5f5;
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   flex: 0 0 auto;
   gap: 4px;
   min-height: 30px;
   padding: 7px 18px;
   position: relative;
+  width: 52px;
 }
 
 .contant2 .check-box-wrapper {
   align-items: center;
   background-color: #ffffff;
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   flex: 0 0 auto;
   gap: 4px;
   min-height: 30px;
   padding: 7px 18px;
   position: relative;
+  width: 52px;
 }
 
 .contant2 .checkbox-states-wrapper {
@@ -1217,7 +1240,7 @@
 }
 
 .contant2 .line-40 {
-  height: 792px !important;
+  height: 100% !important;
   left: 1183px !important;
   object-fit: cover !important;
   position: absolute !important;
@@ -1226,80 +1249,110 @@
 }
 
 .contant2 .pagination {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  height: 60px;
-  justify-content: space-around;
-  padding: 24px 0px 0px;
-  position: relative;
-  /* width: 1184px; */
+  min-height: 80px;
+  height: auto;
+  justify-content: center;
+  padding: 20px 0px;
+  position: static;
+  width: 1184px;
+  margin-top: 0px;
+  background-color: #ffffff;
+  border: 1px solid #bdbdbd;
+  border-top: none;
+  clear: both;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 4px 4px;
 }
 
 .contant2 .pagination-info {
   font-family: Roboto;
   font-size: 14px;
   color: #666;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .contant2 .pagination-controls {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
+  width: 100%;
 }
 
 .contant2 .pagination-btn {
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
   color: #333;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
   font-family: Roboto;
   font-size: 14px;
+  font-weight: 500;
   transition: all 0.2s ease;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .contant2 .pagination-btn:hover:not(:disabled) {
-  background-color: #e9ecef;
-  border-color: #adb5bd;
+  background-color: #2c7c6d;
+  border-color: #2c7c6d;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(44, 124, 109, 0.2);
 }
 
 .contant2 .pagination-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
+  background-color: #f8f9fa;
+  color: #999;
 }
 
 .contant2 .page-numbers {
   display: flex;
   align-items: center;
-  gap: 2px;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
 }
 
 .contant2 .page-number {
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
   color: #333;
-  padding: 8px 12px;
+  padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
   font-family: Roboto;
   font-size: 14px;
+  font-weight: 500;
   transition: all 0.2s ease;
-  min-width: 40px;
+  min-width: 45px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .contant2 .page-number:hover {
   background-color: #e9ecef;
   border-color: #adb5bd;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .contant2 .page-number.active {
-  background-color: #007bff !important;
+  background-color: #2c7c6d !important;
   color: white !important;
-  border-color: #007bff !important;
+  border-color: #2c7c6d !important;
+  box-shadow: 0 2px 6px rgba(44, 124, 109, 0.3);
 }
 
 .contant2 .frame-content2-new {
@@ -1307,19 +1360,22 @@
   align-self: stretch;
   display: flex;
   flex: 0 0 auto;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   width: 100%;
+  gap: 15px;
 }
 
 .contant2 .frame-content2-11 {
-  align-items: flex-start;
-  display: inline-flex;
+  align-items: center;
+  display: flex;
   flex: 0 0 auto;
   flex-direction: column;
   gap: 10px;
   justify-content: center;
   position: relative;
+  width: 100%;
 }
 
 .contant2 .frame-content2-12 {
@@ -1705,6 +1761,88 @@
   flex: 1;
   overflow-y: auto;
   padding: 0;
+}
+
+/* Additional checkbox alignment fixes */
+.contant2 .checkbox .div-5,
+.contant2 .checkbox-states .div-5,
+.contant2 .check-box-wrapper .div-5 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.contant2 .checkbox input[type="checkbox"],
+.contant2 .checkbox-states input[type="checkbox"],
+.contant2 .check-box-wrapper input[type="checkbox"] {
+  margin: 0;
+  padding: 0;
+}
+
+/* Table height adjustments */
+.contant2 .container-4 {
+  min-height: auto;
+  height: auto;
+}
+
+/* Pagination container improvements - merged with main pagination styles */
+
+.contant2 .pagination-info {
+  font-weight: 500;
+  color: #555;
+}
+
+/* Ensure proper flow for pagination */
+
+/* Responsive pagination styles */
+@media (max-width: 768px) {
+  .contant2 .pagination {
+    width: 100%;
+    padding: 15px 10px;
+  }
+
+  .contant2 .pagination-controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .contant2 .page-numbers {
+    order: 2;
+  }
+
+  .contant2 .pagination-btn {
+    min-width: 120px;
+    padding: 12px 20px;
+  }
+
+  .contant2 .page-number {
+    min-width: 40px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contant2 .pagination-info {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .contant2 .page-numbers {
+    gap: 3px;
+  }
+
+  .contant2 .page-number {
+    min-width: 35px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .contant2 .pagination-btn {
+    font-size: 12px;
+    padding: 10px 16px;
+  }
 }
 
 /* Responsive modal styles */

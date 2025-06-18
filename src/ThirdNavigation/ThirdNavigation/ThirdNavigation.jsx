@@ -351,7 +351,7 @@ export default function ThirdNavigation() {
             </div>
           </div>
 
-          <Box sx={{ position: 'absolute', left: '19px', top: '350px', width: '1144px' }}>
+          <Box sx={{ position: 'absolute', left: '19px', top: '316px', width: '1144px' }}>
             <TextField
               label="Header *"
               value={header}

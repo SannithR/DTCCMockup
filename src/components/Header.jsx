@@ -6,8 +6,8 @@ export default function Header() {
     <header className="header">
       <div className="top-bar">
         <div className="logo-title">
-          <span className="logo">ABCD</span>
-          <span className="title">LOREM IPSUM</span>
+          <img src="/dtcc-logo.svg" alt="DTCC Logo" className="logo-image" />
+          <span className="title">FINANCIAL SERVICES PLATFORM</span>
         </div>
         <div className="icons">
           <i className="icon search" title="Search" />
