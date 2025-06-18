@@ -10,6 +10,8 @@ import { Line33 } from "../Line33/Line33";
 import { Line36 } from "../Line36/Line36";
 import { Line37 } from "../Line37/Line37";
 import { Polygon1 } from "../Polygon1/Polygon1";
+import img from "../../assets/Group 21.png";
+import image from "../../assets/Group 18.png";
 import {
   HelpOutline as HelpIcon,
   Menu as MenuIcon,
@@ -346,10 +348,9 @@ export default function Content () {
           <div className="group-3">
             <div className="group-4">
               <div className="group-5">
-                <div className="overlap-group-3">
-                  <Ellipse2 className="ellipse-2-instance" />
-                  <Ellipse3_1 className="icon-instance-node" />
-                </div>
+                
+                <img src={image} alt="Group 21" />
+               
               </div>
             </div>
           </div>
@@ -543,10 +544,10 @@ export default function Content () {
               <div className="group-4">
                 <div className="group-5">
                   <div className="group-4">
-                    <div className="overlap-group-5">
-                      <Ellipse2 className="ellipse-19" />
-                      <Ellipse3_2 className="ellipse-20" />
-                    </div>
+                   
+                    <img src={img} alt="Group 21" />
+                    
+                 
                   </div>
                 </div>
               </div>
