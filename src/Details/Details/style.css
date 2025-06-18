@@ -34,7 +34,7 @@
 
 .framedetails .detailed-view {
   color: #0e5447;
-  font-family: "Roboto-Medium", Helvetica;
+  font-family: Roboto;
   font-size: 18px;
   font-weight: 500;
   height: 20px;
@@ -267,7 +267,7 @@
 
 .framedetails .underlined {
   color: #008b00;
-  font-family: "Roboto-Regular", Helvetica;
+  font-family: Roboto;
   font-size: 12px;
   font-weight: 400;
   left: 0;
@@ -279,7 +279,7 @@
   width: 58px;
 }
 
-.framedetails .span {
+.framedetails .span2 {
   font-family: var(--notification-date-font-family);
   font-size: var(--notification-date-font-size);
   font-style: var(--notification-date-font-style);
@@ -315,7 +315,7 @@
   line-height: var(--notification-date-line-height);
   position: absolute;
   top: 2px;
-  width: 81px;
+  width: 84px;
 }
 
 .framedetails .text-wrapper-details-10 {
@@ -569,7 +569,7 @@
 
 .framedetails .text-wrapper-details-14 {
   color: #212121;
-  font-family: "Roboto-Regular", Helvetica;
+  font-family: Roboto;
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0;
@@ -603,7 +603,7 @@
 }
 
 .framedetails .divdetails-11 {
-  align-items: flex-end;
+  /* align-items: flex-end; */
   display: inline-flex;
   gap: 10px;
   left: 370px;

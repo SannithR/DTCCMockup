@@ -44,7 +44,9 @@ export default function Details ()  {
         </div>
 
         <div className="text-wrapper-details">
+        {/*
           <CloseIcon sx={{ color: '#616161', fontSize: 20 }} />
+          */}
         </div>
       </div>
 
@@ -78,7 +80,7 @@ export default function Details ()  {
       <div className="detailsgroup-4">
         <div className="overlap-detailsgroup">
           <p className="underlined">
-            <span className="span">Underlined</span>
+            <span className="span2">Underlined</span>
           </p>
 
           <div className="text-wrapper-details-8">:</div>

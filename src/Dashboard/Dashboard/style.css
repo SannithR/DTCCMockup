@@ -101,7 +101,7 @@
 
 .content .text-wrapper {
   color: #ffffff;
-  font-family: "Fugaz One-Regular", Helvetica;
+  font-family: 'Fugaz One', cursive;
   font-size: clamp(18px, 4vw, 24px);
   font-weight: 400;
   letter-spacing: 0;
@@ -518,7 +518,7 @@
 .content .test-DASH {
   align-self: stretch;
   color: #0e5447;
-  font-family: "Roboto-Medium", Helvetica;
+  font-family: Roboto;
   font-size: 18px;
   font-weight: 500;
   height: 21px;
@@ -988,7 +988,7 @@
 
 .content .quisque-rutrum {
   color: transparent;
-  font-family: "Roboto-Regular", Helvetica;
+  font-family: Roboto;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0;
@@ -1015,7 +1015,7 @@
 
 .content .aenean-imperdiet {
   color: transparent;
-  font-family: "Roboto-Regular", Helvetica;
+  font-family: Roboto;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0;
@@ -2021,7 +2021,7 @@
   flex-direction: column;
   flex-grow: 1;
   gap: 10.5px;
-  height: 126px;
+  /* height: 126px; */
   position: relative;
 }
 
@@ -2095,7 +2095,7 @@
 .content .p {
   align-self: stretch;
   color: transparent;
-  font-family: "Roboto-Regular", Helvetica;
+  font-family: Roboto;
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0;
@@ -2140,7 +2140,7 @@
 .content .span-wrapper {
   align-self: stretch;
   color: #616161;
-  font-family: "Roboto-Bold", Helvetica;
+  font-family: Roboto;
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0;

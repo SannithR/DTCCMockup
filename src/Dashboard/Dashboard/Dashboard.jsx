@@ -17,7 +17,7 @@ import {
   Logout as LogoutIcon
 } from '@mui/icons-material';
 import "./style.css";
-
+import "../../styleguide.css";
 import ContentUpdated from "../../Page3Upadted/ContentUpdated/ContentUpdated";
 import ThirdNavigation from "../../ThirdNavigation/ThirdNavigation/ThirdNavigation";
 
@@ -115,7 +115,7 @@ export default function Content () {
 
       {/* Conditional rendering based on active tab */}
       {activeTab === "NAVIGATION ONE" && (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' ,padding: '20px' }}>
           <div className="simple-alerts">
         <div className="a-simple-info-alert-wrapper">
           <div className="a-simple-info-alert">Latest Updates</div>
@@ -689,7 +689,7 @@ export default function Content () {
         </div>
       </div>
 
-        </>
+        </div>
       )}
 
       {/* Content for NAVIGATION TWO */}

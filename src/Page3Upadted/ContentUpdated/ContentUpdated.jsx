@@ -465,7 +465,7 @@ export default function ContentUpdated () {
                               type="text"
                               value={searchTerm}
                               onChange={handleSearchChange}
-                              onClick={handleSearchClick}
+                              // onClick={handleSearchClick}
                               style={{
                                 background: 'transparent',
                                 border: 'none',
