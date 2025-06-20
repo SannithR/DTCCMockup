@@ -1,38 +1,71 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.content {
+  align-items: center;
+  background-color: #fbf9f4;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: clamp(12px, 2vw, 20px);
+  position: relative;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 clamp(8px, 2vw, 24px);
+  box-sizing: border-box;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+/* Comprehensive responsive breakpoints */
+@media (max-width: 480px) {
+  .content {
+    padding: 0 8px;
+    gap: 12px;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (min-width: 481px) and (max-width: 768px) {
+  .content {
+    padding: 0 16px;
+    gap: 16px;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .content {
+    padding: 0 20px;
+    gap: 18px;
   }
+}
+
+@media (min-width: 1025px) {
+  .content {
+    padding: 0 24px;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+/* Ultra-wide screen optimizations */
+@media (min-width: 1400px) {
+  .content {
+    max-width: 1900px;
+  }
+}
+
+/* Ensure all containers respect viewport width */
+.content > * {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid #ffc454;
+  outline-offset: 2px;
 }

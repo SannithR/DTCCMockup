@@ -30,90 +30,7 @@ export default function Content () {
   const [activeTab, setActiveTab] = useState("NAVIGATION ONE");
   return (
     <div className="content">
-      <div className="header">
-        <div className="content-wrapper">
-          <div className="div">
-            <div className="depository-trust">
-              <div className="text-wrapper">ABCD</div>
-            </div>
-
-            <Line1 className="line-header" />
-            <div className="lorem-ipsum">LOREM IPSUM</div>
-
-            <div className="tool-bar-icons">
-              <div className="frame">
-                <div className="tool-bar-icons-2">
-               
-
-                  <button className="icon-button" title="Help">
-                    <HelpIcon sx={{ color: '#ffffff', fontSize: 20 }} />
-                  </button>
-
-                  <div className="menu">
-                    <div className="menu-2">
-                      <MenuIcon sx={{ color: '#ffffff', fontSize: 20 }} />
-                    </div>
-                  </div>
-
-                  <div className="div-wrapper">
-                    <div className="text-wrapper-2">
-                      <AccountIcon sx={{ color: '#ffffff', fontSize: 20 }} />
-                    </div>
-                  </div>
-
-                  <div className="logout">
-                    <div className="logout-2">
-                      <div className="text-wrapper-2">
-                        <LogoutIcon sx={{ color: '#ffffff', fontSize: 20 }} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="component">
-          <button
-            className={`tab-item ${activeTab === "NAVIGATION ONE" ? "active" : ""}`}
-            onClick={() => setActiveTab("NAVIGATION ONE")}
-          >
-            <div className="text-wrapper-3">NAVIGATION ONE</div>
-          </button>
-
-          <button
-            className={`tab-item-2 ${activeTab === "NAVIGATION TWO" ? "active" : ""}`}
-            onClick={() => setActiveTab("NAVIGATION TWO")}
-          >
-            <div className="NAVIGATION-ONE">NAVIGATION TWO</div>
-          </button>
-
-          <button
-            className={`tab-item-2 ${activeTab === "NAVIGATION THREE" ? "active" : ""}`}
-            onClick={() => setActiveTab("NAVIGATION THREE")}
-          >
-            <div className="NAVIGATION-ONE">NAVIGATION THREE</div>
-          </button>
-
-          {/* Mobile menu overlay */}
-          {isMobileMenuOpen && (
-            <div className="mobile-menu-overlay">
-              <div className="mobile-menu">
-                <button onClick={() => { setActiveTab("NAVIGATION ONE"); setIsMobileMenuOpen(false); }}>
-                  NAVIGATION ONE
-                </button>
-                <button onClick={() => { setActiveTab("NAVIGATION TWO"); setIsMobileMenuOpen(false); }}>
-                  NAVIGATION TWO
-                </button>
-                <button onClick={() => { setActiveTab("NAVIGATION THREE"); setIsMobileMenuOpen(false); }}>
-                  NAVIGATION THREE
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+    
 
       {/* Conditional rendering based on active tab */}
       {activeTab === "NAVIGATION ONE" && (
@@ -703,32 +620,7 @@ export default function Content () {
         <ThirdNavigation />
       )}
 
-      {/* Footer - appears on all tabs */}
-      <div className="component-2">
-        <div className="frame-20">
-          <div className="frame-21">
-            <div className="text-wrapper-25">Privacy Policy</div>
-          </div>
-
-          <div className="frame-21">
-            <div className="text-wrapper-25">Terms of Use</div>
-
-            <Line1_1 className="line-1" />
-          </div>
-
-          <div className="frame-21">
-            <div className="text-wrapper-25">Contact Us</div>
-
-            <Line1_1 className="line-1" />
-          </div>
-
-          <div className="frame-21">
-            <div className="text-wrapper-25">DTCC.com</div>
-
-            <Line1_1 className="line-1" />
-          </div>
-        </div>
-      </div>
+     
     </div>
   );
 };
