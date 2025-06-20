@@ -10,8 +10,8 @@ import { Line33 } from "../Line33/Line33";
 import { Line36 } from "../Line36/Line36";
 import { Line37 } from "../Line37/Line37";
 import { Polygon1 } from "../Polygon1/Polygon1";
-import img from "../../assets/Group 21.png";
-import image from "../../assets/Group 18.png";
+import img from "../../../assets/Group 21.png";
+import image from "../../../assets/Group 18.png";
 import {
   HelpOutline as HelpIcon,
   Menu as MenuIcon,
@@ -19,8 +19,8 @@ import {
   Logout as LogoutIcon
 } from '@mui/icons-material';
 import "./style.css";
-import "../../styleguide.css";
-import ContentUpdated from "../../Page3Upadted/ContentUpdated/ContentUpdated";
+import "../../../styleguide.css";
+import ContentUpdated from "../../Page3Updated/ContentUpdated/ContentUpdated";
 import ThirdNavigation from "../../ThirdNavigation/ThirdNavigation/ThirdNavigation";
 
 export default function Content () {

@@ -23,7 +23,7 @@ import {
 } from '@mui/icons-material';
 import "./style.css";
 import ThirdNavigationModel from "../../ThirdNavigationModel/ThirdNavigationModel/ThirdNavigationModel";
-import Alerts from "../../Alert/Alerts/Alerts";
+import Alerts from "../../../Alert/Alerts/Alerts";
 
 /**
  * ThirdNavigation component allows users to create a new item with priority, date, recipients, message, and header fields.

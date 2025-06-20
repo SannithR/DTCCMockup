@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Header from './components/Header/Header';
 import Navigation from './components/Navigation/Navigation';
 import Footer from './components/Footer/Footer';
-import Dashboard from './Dashboard/Dashboard/Dashboard';
-import ContentUpdated from './Page3Upadted/ContentUpdated/ContentUpdated';
-import ThirdNavigation from './ThirdNavigation/ThirdNavigation/ThirdNavigation';
+import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
+import ContentUpdated from './Pages/Page3Updated/ContentUpdated/ContentUpdated';
+import ThirdNavigation from './Pages/ThirdNavigation/ThirdNavigation/ThirdNavigation';
 import './App.css';
 
 function App() {
