@@ -14,10 +14,13 @@ import "./style.css";
 import Details from "../../Details/Details/Details";
 import CopyDialogueBox from "../../Dialogue/CopyDialogueBox/CopyDialogueBox";
 
+// Main content component for the updated page
 export default function ContentUpdated () {
-  // State management
+  // -------------------- STATE MANAGEMENT --------------------
+  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(18);
+  // Search and filter state
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDropdowns, setSelectedDropdowns] = useState({
     dropdown1: "",
@@ -25,40 +28,37 @@ export default function ContentUpdated () {
     dropdown3: "",
     dropdown4: ""
   });
+  // Row selection and sorting state
   const [selectedRows, setSelectedRows] = useState(new Set());
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-
-  // Modal state management
+  // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [isCopyDialogOpen, setIsCopyDialogOpen] = useState(false);
 
-  // Keep the existing table data structure but make it paginated
+  // -------------------- DATA GENERATION --------------------
+  // Generate table data (mocked for demonstration)
   const allData = useMemo(() => {
-    // Original table data from the existing structure
+    // Example data for each column
     const column1Data = [
       "0034779", "0034778", "0234779", "4234559", "3234759", "0034759", "6234759", "0034779",
       "6234759", "4234559", "0034779", "3234759", "3234759", "4234559", "0034759", "0034759",
       "0034759", "0034759", "6234759", "6234759", "0034779", "0034779", "0034759", "0034759", "0034779"
     ];
-
     const column2Data = [
       "Test", "Test 0234779", "Test 001", "Test 0012345", "Test 007", "Test 0456789", "Test 002",
       "Test 0016789", "Test 003", "Test 0098765", "Test 004", "Test 0123456", "Test 005", "Test 0087654",
       "Test 006", "Test 0034567", "Test 010", "Test 0111111", "Test 012", "Test 0134567", "Test 014",
       "Test 0156789", "Test 016", "Test 0179876", "Test 018"
     ];
-
     const column3Data = [
       "30_ABXYZ", "35_GHIKZM", "20_ABXYM", "25_KHIKZM", "40_LMNOPQ", "15_DEFUVW", "50_RSTUVW",
       "45_XYZABC", "10_KLMNOP", "55_QRSTUV", "60_ABCDEF", "70_GHIJKL", "65_MNOPQR", "80_STUVWX",
       "75_YZABCD", "85_EFGHIJ", "90_PQRSTU", "95_VWXYZA", "100_HIJKLM", "110_NOPQRS", "105_TUVWXY",
       "120_ZABCDE", "125_FGHJKL", "130_MNOPST", "140_QRSTUV"
     ];
-
     const column4Data = [
-      "2024-12-25  03:09:05 AM", "2024-11-25  04:19:06 AM", "2024-10-26  03:09:08 AM",
-      "2024-12-25  05:09:15 AM", "2024-12-25  03:09:05 PM", "2024-12-24  03:09:25 AM",
+      "2024-12-25  03:09:05 AM", "2024-12-25  05:09:15 AM", "2024-12-25  03:09:05 PM", "2024-12-24  03:09:25 AM",
       "2024-11-23  03:09:07 AM", "2024-10-21  03:09:09 AM", "2024-12-25  05:08:01 AM",
       "2024-12-25  03:09:08 PM", "2024-11-23  03:09:05 AM", "2024-12-25  03:09:05 AM",
       "2024-12-25  03:09:15 AM", "2024-12-25  03:09:55 PM", "2024-12-25  03:09:35 PM",
@@ -67,8 +67,7 @@ export default function ContentUpdated () {
       "2024-12-25  03:09:05 PM", "2024-12-25  03:09:05 AM", "2024-12-27  03:09:05 AM",
       "2024-12-25  03:09:05 AM"
     ];
-
-    // Create 800 items by repeating and varying the original data
+    // Repeat and vary data to simulate a large dataset
     const data = [];
     for (let i = 0; i < 800; i++) {
       data.push({
@@ -82,7 +81,7 @@ export default function ContentUpdated () {
     return data;
   }, []);
 
-  // Dropdown options
+  // Dropdown menu options
   const dropdownOptions = [
     { value: "", label: "Select" },
     { value: "option1", label: "Option 1" },
@@ -91,11 +90,11 @@ export default function ContentUpdated () {
     { value: "option4", label: "Option 4" }
   ];
 
-  // Filter and search logic
+  // -------------------- FILTERING & SEARCH --------------------
+  // Filter data based on search term and dropdowns
   const filteredData = useMemo(() => {
     let filtered = allData;
-
-    // Apply search filter
+    // Search filter: checks all columns for the search term
     if (searchTerm) {
       filtered = filtered.filter(item =>
         Object.values(item).some(value =>
@@ -103,17 +102,14 @@ export default function ContentUpdated () {
         )
       );
     }
-
-    // Apply dropdown filters (if needed)
-    // Add filtering logic based on dropdown selections here
-
+    // Dropdown filter logic can be added here if needed
     return filtered;
   }, [allData, searchTerm, selectedDropdowns]);
 
-  // Sorting logic
+  // -------------------- SORTING --------------------
+  // Sort data based on selected column and direction
   const sortedData = useMemo(() => {
     if (!sortConfig.key) return filteredData;
-
     return [...filteredData].sort((a, b) => {
       if (a[sortConfig.key] < b[sortConfig.key]) {
         return sortConfig.direction === 'asc' ? -1 : 1;
@@ -125,14 +121,16 @@ export default function ContentUpdated () {
     });
   }, [filteredData, sortConfig]);
 
-  // Pagination logic
+  // -------------------- PAGINATION --------------------
+  // Calculate pagination values
   const totalItems = sortedData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentData = sortedData.slice(startIndex, endIndex);
 
-  // Event handlers
+  // -------------------- EVENT HANDLERS --------------------
+  // Handle dropdown value change
   const handleDropdownChange = (dropdownName, value) => {
     setSelectedDropdowns(prev => ({
       ...prev,
@@ -140,16 +138,18 @@ export default function ContentUpdated () {
     }));
   };
 
+  // Handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
     setCurrentPage(1); // Reset to first page when searching
   };
 
+  // Handle search icon or button click (opens copy dialog)
   const handleSearchClick = () => {
-    // Open the CopyDialogueBox modal
     setIsCopyDialogOpen(true);
   };
 
+  // Handle sorting when a column header is clicked
   const handleSort = (columnKey) => {
     setSortConfig(prev => ({
       key: columnKey,
@@ -157,15 +157,15 @@ export default function ContentUpdated () {
     }));
   };
 
+  // Handle row selection (checkbox)
   const handleRowSelect = (rowId) => {
-    // Find the row data for the selected row
+    // Open details modal for the selected row
     const rowData = allData.find(item => item.id === rowId);
     if (rowData) {
       setSelectedRowData(rowData);
       setIsModalOpen(true);
     }
-
-    // Also maintain the original selection behavior for other functionality
+    // Toggle row selection
     setSelectedRows(prev => {
       const newSet = new Set(prev);
       if (newSet.has(rowId)) {
@@ -177,6 +177,7 @@ export default function ContentUpdated () {
     });
   };
 
+  // Handle select all rows on current page
   const handleSelectAll = () => {
     if (selectedRows.size === currentData.length) {
       setSelectedRows(new Set());
@@ -185,212 +186,94 @@ export default function ContentUpdated () {
     }
   };
 
+  // Pagination controls
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
-
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  // Modal handlers
+  // Modal close handlers
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedRowData(null);
   };
-
   const handleModalBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       handleCloseModal();
     }
   };
-
-  // CopyDialogueBox modal handlers
+  // Copy dialog close handlers
   const handleCloseCopyDialog = () => {
     setIsCopyDialogOpen(false);
   };
-
   const handleCopyDialogBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       handleCloseCopyDialog();
     }
   };
 
+  // -------------------- RENDERING --------------------
   return (
     <div className="contant2">
-
-
+      {/* Main content wrapper */}
       <div className="main-contant2">
+        {/* Page title and info icon */}
         <div className="title-2">
           <div className="text">PAGE TITLE 00123</div>
-
           <div className="info-icon">
             <div className="info-circle">
               <HelpOutlineIcon
-                style={{
-                  color: '#666',
-                  fontSize: '20px',
-                  cursor: 'pointer'
-                }}
+                style={{ color: '#666', fontSize: '20px', cursor: 'pointer' }}
               />
             </div>
           </div>
         </div>
-
+        {/* Filter section with dropdowns and search */}
         <div className="section2">
           <div className="div-3">
             <div className="row-2">
-              <div className="top-label-dropdown">
-                <div className="frame-content2-4">
-                  <div className="label-wrapper">
-                    <div className="label">
-                      <div className="text-wrapper-content2-5">Lorem Ipsum</div>
+              {/* Dropdowns for filtering (labels are placeholders) */}
+              {[1,2,3].map((num) => (
+                <div className="top-label-dropdown" key={`dropdown${num}`}> 
+                  <div className="frame-content2-4">
+                    <div className="label-wrapper">
+                      <div className="label">
+                        <div className="text-wrapper-content2-5">Lorem Ipsum</div>
+                      </div>
+                    </div>
+                    <div className="frame-content2-5" />
+                  </div>
+                  <div className="div-4">
+                    <select
+                      value={selectedDropdowns[`dropdown${num}`]}
+                      onChange={(e) => handleDropdownChange(`dropdown${num}`, e.target.value)}
+                      style={{
+                        background: 'transparent', border: 'none', outline: 'none', width: '100%',
+                        cursor: 'pointer', appearance: 'none', color: 'inherit', fontSize: 'inherit', fontFamily: 'inherit'
+                      }}
+                    >
+                      {dropdownOptions.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+                    <div className="frame-content2-6">
+                      <KeyboardArrowDownIcon style={{ color: '#666', fontSize: '20px', pointerEvents: 'none', marginRight:"-670px" }} />
                     </div>
                   </div>
-
-                  <div className="frame-content2-5" />
                 </div>
-
-                <div className="div-4">
-                  <select
-                    value={selectedDropdowns.dropdown1}
-                    onChange={(e) => handleDropdownChange('dropdown1', e.target.value)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      width: '100%',
-                      cursor: 'pointer',
-                      appearance: 'none',
-                      color: 'inherit',
-                      fontSize: 'inherit',
-                      fontFamily: 'inherit'
-                    }}
-                  >
-                    {dropdownOptions.map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-
-                  <div className="frame-content2-6">
-                    <KeyboardArrowDownIcon
-                      style={{
-                        color: '#666',
-                        fontSize: '20px',
-                        pointerEvents: 'none',
-                        marginRight:"-670px"
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="top-label-dropdown">
-                <div className="frame-content2-4">
-                  <div className="label-wrapper">
-                    <div className="label">
-                      <div className="text-wrapper-content2-5">Lorem Ipsum</div>
-                    </div>
-                  </div>
-
-                  <div className="frame-content2-5" />
-                </div>
-
-                <div className="div-4">
-                  <select
-                    value={selectedDropdowns.dropdown2}
-                    onChange={(e) => handleDropdownChange('dropdown2', e.target.value)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      width: '100%',
-                      cursor: 'pointer',
-                      appearance: 'none',
-                      color: 'inherit',
-                      fontSize: 'inherit',
-                      fontFamily: 'inherit'
-                    }}
-                  >
-                    {dropdownOptions.map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-
-                  <div className="frame-content2-6">
-                    <KeyboardArrowDownIcon
-                      style={{
-                        color: '#666',
-                        fontSize: '20px',
-                        pointerEvents: 'none',
-                         marginRight:"-670px"
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="top-label-dropdown">
-                <div className="frame-content2-4">
-                  <div className="label-wrapper">
-                    <div className="label">
-                      <div className="text-wrapper-content2-5">Lorem Ipsum</div>
-                    </div>
-                  </div>
-
-                  <div className="frame-content2-5" />
-                </div>
-
-                <div className="div-4">
-                  <select
-                    value={selectedDropdowns.dropdown3}
-                    onChange={(e) => handleDropdownChange('dropdown3', e.target.value)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      width: '100%',
-                      cursor: 'pointer',
-                      appearance: 'none',
-                      color: 'inherit',
-                      fontSize: 'inherit',
-                      fontFamily: 'inherit'
-                    }}
-                  >
-                    {dropdownOptions.map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-
-                  <div className="frame-content2-6">
-                    <KeyboardArrowDownIcon
-                      style={{
-                        color: '#666',
-                        fontSize: '20px',
-                        pointerEvents: 'none',
-                         marginRight:"-670px"
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
-
             <div className="row-2">
+              {/* Fourth dropdown and search bar */}
               <div className="top-label-dropdown">
                 <div className="frame-content2-4">
                   <div className="label-wrapper">
@@ -398,50 +281,30 @@ export default function ContentUpdated () {
                       <div className="text-wrapper-content2-5">Lorem Ipsum</div>
                     </div>
                   </div>
-
                   <div className="frame-content2-5" />
                 </div>
-
                 <div className="div-4">
                   <select
                     value={selectedDropdowns.dropdown4}
                     onChange={(e) => handleDropdownChange('dropdown4', e.target.value)}
                     style={{
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      width: '100%',
-                      cursor: 'pointer',
-                      appearance: 'none',
-                      color: 'inherit',
-                      fontSize: 'inherit',
-                      fontFamily: 'inherit'
+                      background: 'transparent', border: 'none', outline: 'none', width: '100%',
+                      cursor: 'pointer', appearance: 'none', color: 'inherit', fontSize: 'inherit', fontFamily: 'inherit'
                     }}
                   >
                     {dropdownOptions.map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
+                      <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
                   </select>
-
                   <div className="frame-content2-6">
-                    <KeyboardArrowDownIcon
-                      style={{
-                        color: '#666',
-                        fontSize: '20px',
-                        pointerEvents: 'none',
-                         marginRight:"-670px"
-                      }}
-                    />
+                    <KeyboardArrowDownIcon style={{ color: '#666', fontSize: '20px', pointerEvents: 'none', marginRight:"-670px" }} />
                   </div>
                 </div>
-
                 <div className="help-text-wrapper-content2">
                   <div className="help-text">Advanced</div>
                 </div>
               </div>
-
+              {/* Search bar with icon */}
               <div className="search-bar">
                 <div className="div-5">
                   <div className="input-box">
@@ -449,14 +312,10 @@ export default function ContentUpdated () {
                       <div className="input-box-top-label">
                         <div className="label-frame-content2">
                           <div className="label-2">
-                            <p className="text-wrapper-content2-5">
-                              Lorem Ipsum Aenean leo ligula
-                            </p>
-
+                            <p className="text-wrapper-content2-5">Lorem Ipsum Aenean leo ligula</p>
                             <div className="text-wrapper-content2-7">*</div>
                           </div>
                         </div>
-
                         <div className="frame-content2-wrapper">
                           <div className="frame-content2-7">
                             <input
@@ -465,48 +324,26 @@ export default function ContentUpdated () {
                               type="text"
                               value={searchTerm}
                               onChange={handleSearchChange}
-                              // onClick={handleSearchClick}
                               style={{
-                                background: 'transparent',
-                                border: 'none',
-                                outline: 'none',
-                                width: '100%',
-                                height: '100%',
-                                cursor: 'text',
-                                paddingRight: '30px',
-                                fontSize: 'inherit',
-                                fontFamily: 'inherit',
-                                color: 'inherit'
+                                background: 'transparent', border: 'none', outline: 'none', width: '100%', height: '100%',
+                                cursor: 'text', paddingRight: '30px', fontSize: 'inherit', fontFamily: 'inherit', color: 'inherit'
                               }}
                             />
-                         
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
                   <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                     <input
                       className="input"
-                   
                       type="text"
-                      // value={searchTerm}
                       onChange={handleSearchChange}
                       onClick={handleSearchClick}
-                      style={{
-                        cursor: 'text',
-                        paddingRight: '40px'
-                      }}
+                      style={{ cursor: 'text', paddingRight: '40px' }}
                     />
                     <SearchIcon
-                      style={{
-                        position: 'absolute',
-                        right: '12px',
-                        color: 'white',
-                        fontSize: '20px',
-                        cursor: 'pointer'
-                      }}
+                      style={{ position: 'absolute', right: '12px', color: 'white', fontSize: '20px', cursor: 'pointer' }}
                       onClick={handleSearchClick}
                     />
                   </div>
@@ -514,54 +351,46 @@ export default function ContentUpdated () {
               </div>
             </div>
           </div>
-
+          {/* Find button triggers copy dialog */}
           <button className="button" onClick={handleSearchClick}>
             <div className="div-wrapper-2">
-            
               <div className="PRIMARY">FIND</div>
             </div>
           </button>
         </div>
-
+        {/* Table and action bar */}
         <div className="container">
           <div className="overlap">
             <div className="overlap-wrapper">
               <div className="overlap">
+                {/* Action bar for copy/delete */}
                 <div className="action-bar">
                   <div className="frame-content2-8">
                     <div className="element-to-of">Total Items Found: {totalItems}</div>
                   </div>
-
                   <div className="data-grid-action-bar">
                     <button
                       className="button-2"
                       onClick={() => {
-                        // Copy functionality
+                        // Copy functionality (implement as needed)
                         console.log('Copy selected items:', Array.from(selectedRows));
                       }}
                       disabled={selectedRows.size === 0}
-                      style={{
-                        opacity: selectedRows.size === 0 ? 0.5 : 1,
-                        cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer'
-                      }}
+                      style={{ opacity: selectedRows.size === 0 ? 0.5 : 1, cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer' }}
                     >
                       <div className="div-wrapper-2">
                         <div className="text-wrapper-content2-8">COPY</div>
                       </div>
                     </button>
-
                     <button
                       className="button-3"
                       onClick={() => {
-                        // Delete functionality
+                        // Delete functionality (implement as needed)
                         console.log('Delete selected items:', Array.from(selectedRows));
                         setSelectedRows(new Set());
                       }}
                       disabled={selectedRows.size === 0}
-                      style={{
-                        opacity: selectedRows.size === 0 ? 0.5 : 1,
-                        cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer'
-                      }}
+                      style={{ opacity: selectedRows.size === 0 ? 0.5 : 1, cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer' }}
                     >
                       <div className="div-wrapper-2">
                         <div className="text-wrapper-content2-8">DELETE</div>
@@ -569,7 +398,7 @@ export default function ContentUpdated () {
                     </button>
                   </div>
                 </div>
-
+                {/* Decorative lines */}
                 <div className="container-wrapper">
                   <div className="overlap-group-wrapper">
                     <div className="overlap-group">
@@ -580,7 +409,7 @@ export default function ContentUpdated () {
                 </div>
               </div>
             </div>
-
+            {/* Data grid (table) */}
             <div className="container-2">
               <div className="overlap-2">
                 <div className="data-grids">
@@ -590,7 +419,7 @@ export default function ContentUpdated () {
                         <div className="line-wrapper">
                           <Line7 className="line-7" />
                         </div>
-
+                        {/* Checkbox column for row selection */}
                         <div className="checkbox-column">
                           <div className="checkbox">
                             <div className="div-5">
@@ -603,11 +432,7 @@ export default function ContentUpdated () {
                               />
                             </div>
                           </div>
-
-                       
-
-                         
-
+                          {/* Individual row checkboxes */}
                           {currentData.map((item, index) => (
                             <div
                               key={item.id}
@@ -625,7 +450,7 @@ export default function ContentUpdated () {
                             </div>
                           ))}
                         </div>
-
+                        {/* Data columns with sortable headers */}
                         <div className="data-column">
                           <div
                             className="header-cell"
@@ -646,7 +471,6 @@ export default function ContentUpdated () {
                               </div>
                             </div>
                           </div>
-
                           {currentData.map((item, index) => (
                             <div
                               key={`col1-${item.id}`}
@@ -658,7 +482,7 @@ export default function ContentUpdated () {
                             </div>
                           ))}
                         </div>
-
+                        {/* Repeat for other columns */}
                         <div className="data-column">
                           <div
                             className="header-cell"
@@ -679,7 +503,6 @@ export default function ContentUpdated () {
                               </div>
                             </div>
                           </div>
-
                           {currentData.map((item, index) => (
                             <div
                               key={`col2-${item.id}`}
@@ -691,7 +514,6 @@ export default function ContentUpdated () {
                             </div>
                           ))}
                         </div>
-
                         <div className="data-column-2">
                           <div
                             className="header-cell"
@@ -712,7 +534,6 @@ export default function ContentUpdated () {
                               </div>
                             </div>
                           </div>
-
                           {currentData.map((item, index) => (
                             <div
                               key={`col3-${item.id}`}
@@ -724,7 +545,6 @@ export default function ContentUpdated () {
                             </div>
                           ))}
                         </div>
-
                         <div className="data-column-3">
                           <div
                             className="header-cell"
@@ -745,40 +565,6 @@ export default function ContentUpdated () {
                               </div>
                             </div>
                           </div>
-
-                          {currentData.map((item, index) => (
-                            <div
-                              key={`col4-${item.id}`}
-                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
-                            >
-                              <div className="div-wrapper-2">
-                                <div className="lorem-lipsum">{item.column4}</div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="data-column-4">
-                          <div
-                            className="header-cell"
-                            onClick={() => handleSort('column4')}
-                            style={{ cursor: 'pointer' }}
-                          >
-                            <div className="frame-content2-9">
-                              <div className="group-5">
-                                <IconComponentNode className="line-1" />
-                                <div className="label-3">
-                                  Donec pede justo
-                                  {sortConfig.key === 'column4' && (
-                                    <span style={{ marginLeft: '5px' }}>
-                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
                           {currentData.map((item, index) => (
                             <div
                               key={`col4-${item.id}`}
@@ -791,19 +577,16 @@ export default function ContentUpdated () {
                           ))}
                         </div>
                       </div>
-
                       <div className="container-5" />
                     </div>
                   </div>
                 </div>
-
                 <Line40 className="line-40" />
               </div>
             </div>
           </div>
         </div>
-
-        {/* Pagination Controls */}
+        {/* Pagination controls */}
         <div className="pagination">
           <div className="frame-content2-new">
             <div className="frame-content2-11">
@@ -811,7 +594,6 @@ export default function ContentUpdated () {
                 Showing {startIndex + 1} to {Math.min(endIndex, totalItems)} of {totalItems} entries
               </div>
             </div>
-
             <div className="pagination-controls">
               <button
                 className="pagination-btn"
@@ -820,7 +602,6 @@ export default function ContentUpdated () {
               >
                 Previous
               </button>
-
               <div className="page-numbers">
                 {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                   let pageNum;
@@ -833,7 +614,6 @@ export default function ContentUpdated () {
                   } else {
                     pageNum = currentPage - 2 + i;
                   }
-
                   return (
                     <button
                       key={pageNum}
@@ -845,7 +625,6 @@ export default function ContentUpdated () {
                   );
                 })}
               </div>
-
               <button
                 className="pagination-btn"
                 onClick={handleNextPage}
@@ -856,8 +635,7 @@ export default function ContentUpdated () {
             </div>
           </div>
         </div>
-
-        {/* Details Modal */}
+        {/* Details modal for row info */}
         {isModalOpen && selectedRowData && (
           <div className="modal-overlay" onClick={handleModalBackdropClick}>
             <div className="modal-content">
@@ -873,8 +651,7 @@ export default function ContentUpdated () {
             </div>
           </div>
         )}
-
-        {/* CopyDialogueBox Modal */}
+        {/* Copy dialog modal */}
         {isCopyDialogOpen && (
           <div className="modal-overlay" onClick={handleCopyDialogBackdropClick}>
             <div className="modal-content">
@@ -890,10 +667,7 @@ export default function ContentUpdated () {
             </div>
           </div>
         )}
-
       </div>
-
-
     </div>
   );
 };

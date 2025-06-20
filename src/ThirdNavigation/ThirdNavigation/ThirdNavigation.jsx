@@ -25,20 +25,36 @@ import "./style.css";
 import ThirdNavigationModel from "../../ThirdNavigationModel/ThirdNavigationModel/ThirdNavigationModel";
 import Alerts from "../../Alert/Alerts/Alerts";
 
+/**
+ * ThirdNavigation component allows users to create a new item with priority, date, recipients, message, and header fields.
+ * It provides form validation, modal confirmation, and alert feedback.
+ */
 export default function ThirdNavigation() {
+  // State for priority dropdown
   const [priority, setPriority] = useState('Low');
+  // State for start date input
   const [startDate, setStartDate] = useState('');
+  // State for end date input
   const [endDate, setEndDate] = useState('');
+  // State for message recipients checkboxes
   const [recipients, setRecipients] = useState({
     recipientA: false,
     recipientB: false,
     recipientC: false
   });
+  // State for message textarea
   const [message, setMessage] = useState('In Retrieval');
+  // State for header input
   const [header, setHeader] = useState('In Retrieval');
+  // State for modal visibility
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // State for alert visibility
   const [showAlert, setShowAlert] = useState(false);
 
+  /**
+   * Handles checkbox changes for recipients.
+   * @param {object} event - Checkbox change event
+   */
   const handleRecipientChange = (event) => {
     setRecipients({
       ...recipients,
@@ -46,24 +62,34 @@ export default function ThirdNavigation() {
     });
   };
 
+  /**
+   * Handles the publish button click, opens the confirmation modal.
+   */
   const handlePublishClick = () => {
     setIsModalOpen(true);
   };
 
+  /**
+   * Closes the confirmation modal.
+   */
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
+  /**
+   * Handles the confirmation (Yes) in the modal, closes modal and shows alert.
+   */
   const handleYesClick = () => {
     setIsModalOpen(false);
     setShowAlert(true);
   };
 
+  // Render the ThirdNavigation form UI
   return (
     <div className="frame-thirdnavigation">
+      {/* Header section with page title and help icon */}
       <div className="thirdnavigation">
         <div className="page-title">PAGE TITLE 00A23</div>
-
         <div className="group-new">
           <div className="info-icon">
             <HelpOutlineIcon sx={{ color: '#0e5447', fontSize: 16 }} />
@@ -71,8 +97,10 @@ export default function ThirdNavigation() {
         </div>
       </div>
 
+      {/* Main form section */}
       <div className="overlap-wrapper">
         <div className="overlap">
+          {/* Priority dropdown */}
           <div className="top-label-dropdown">
             <FormControl fullWidth size="small" sx={{ width: '368px' }}>
               <InputLabel
@@ -123,6 +151,7 @@ export default function ThirdNavigation() {
             </FormControl>
           </div>
 
+          {/* Start date input */}
           <div className="date-input">
             <TextField
               label="Start date *"
@@ -167,6 +196,7 @@ export default function ThirdNavigation() {
             />
           </div>
 
+          {/* End date input */}
           <div className="date-input-default-wrapper">
             <TextField
               label="End Date *"
@@ -211,35 +241,35 @@ export default function ThirdNavigation() {
             />
           </div>
 
+          {/* Recipients checkboxes */}
           <div className="group-2">
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}>
-  <Typography
-              variant="body1"
-              sx={{
-                color: '#212121',
-                fontFamily: 'var(--general-form-elements-medium-font-family)',
-                fontSize: 'var(--general-form-elements-medium-font-size)',
-                fontWeight: 'var(--general-form-elements-medium-font-weight)',
-                marginBottom: '8px'
-              }}
-            >
-              Message Recipients:
-            </Typography>
-
-            <Typography
-              variant="body2"
-              sx={{
-                color: '#616161',
-                fontFamily: 'var(--notification-date-font-family)',
-                fontSize: 'var(--notification-date-font-size)',
-                marginBottom: '16px'
-              }}
-            >
-              (Select at least one)
-            </Typography></div>
-          
-
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: '#212121',
+                  fontFamily: 'var(--general-form-elements-medium-font-family)',
+                  fontSize: 'var(--general-form-elements-medium-font-size)',
+                  fontWeight: 'var(--general-form-elements-medium-font-weight)',
+                  marginBottom: '8px'
+                }}
+              >
+                Message Recipients:
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: '#616161',
+                  fontFamily: 'var(--notification-date-font-family)',
+                  fontSize: 'var(--notification-date-font-size)',
+                  marginBottom: '16px'
+                }}
+              >
+                (Select at least one)
+              </Typography>
+            </div>
             <FormGroup row sx={{ gap: '20px' }}>
+              {/* Checkbox for Recipient A */}
               <FormControlLabel
                 control={
                   <Checkbox
@@ -262,6 +292,7 @@ export default function ThirdNavigation() {
                   }
                 }}
               />
+              {/* Checkbox for Recipient B */}
               <FormControlLabel
                 control={
                   <Checkbox
@@ -284,6 +315,7 @@ export default function ThirdNavigation() {
                   }
                 }}
               />
+              {/* Checkbox for Recipient C */}
               <FormControlLabel
                 control={
                   <Checkbox
@@ -309,6 +341,7 @@ export default function ThirdNavigation() {
             </FormGroup>
           </div>
 
+          {/* Required fields note */}
           <Box sx={{ position: 'absolute', right: '20px', top: '9px' }}>
             <Typography
               variant="body2"
@@ -322,6 +355,7 @@ export default function ThirdNavigation() {
             </Typography>
           </Box>
 
+          {/* Section label */}
           <Box sx={{ position: 'absolute', left: '19px', top: '19px' }}>
             <Typography
               variant="h6"
@@ -336,6 +370,7 @@ export default function ThirdNavigation() {
             </Typography>
           </Box>
 
+          {/* Message textarea */}
           <div className="overlap-group-wrapper-new">
             <div className="overlap-group-new">
               <div className="group-5">
@@ -379,7 +414,7 @@ export default function ThirdNavigation() {
                   </Box>
                 </div>
               </div>
-
+              {/* Decorative lines */}
               <div className="group-6">
                 <div className="overlap-2">
                   <Line52 className="line" />
@@ -389,6 +424,7 @@ export default function ThirdNavigation() {
             </div>
           </div>
 
+          {/* Header input */}
           <Box sx={{ position: 'absolute', left: '19px', top: '316px', width: '1144px' }}>
             <TextField
               label="Header *"
@@ -426,6 +462,7 @@ export default function ThirdNavigation() {
             />
           </Box>
 
+          {/* Publish button */}
           <Box sx={{ position: 'absolute', left: '19px', top: '700px' }}>
             <Button
               variant="contained"
@@ -457,6 +494,7 @@ export default function ThirdNavigation() {
         </div>
       </div>
 
+      {/* Confirmation modal for publishing */}
       <Modal
         open={isModalOpen}
         onClose={handleCloseModal}
@@ -473,6 +511,7 @@ export default function ThirdNavigation() {
         </Box>
       </Modal>
 
+      {/* Alert modal after publishing */}
       {showAlert && (
         <Modal
           open={showAlert}

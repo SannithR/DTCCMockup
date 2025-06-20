@@ -1,3 +1,10 @@
+// ThirdNavigationModel.jsx
+// This component renders a confirmation modal with a message and YES/NO actions.
+// It uses Material UI icons and buttons for a modern look.
+// Props:
+//   onClose: function to call when the modal is closed or NO is clicked
+//   onYes: function to call when YES is clicked
+
 import React from "react";
 import {
   Close as CloseIcon,
@@ -10,11 +17,12 @@ import "./style.css";
 export default function ThirdNavigationModel({ onClose, onYes })  {
   return (
     <div className="modals">
+      {/* Modal header with title and close icon */}
       <div className="frame">
         <div className="text-wrapper">Confirm?</div>
-
         <div className="asset">
           <div className="layer">
+            {/* Close icon triggers onClose prop */}
             <CloseIcon
               onClick={onClose}
               sx={{ color: '#757575', fontSize: 20, cursor: 'pointer' }}
@@ -23,6 +31,7 @@ export default function ThirdNavigationModel({ onClose, onYes })  {
         </div>
       </div>
 
+      {/* Modal body with informational text */}
       <div className="duis-leo-sed-wrapper">
         <p className="duis-leo-sed">
           <span className="span">
@@ -31,16 +40,12 @@ export default function ThirdNavigationModel({ onClose, onYes })  {
             <br />
             <br />
           </span>
-
           <span className="text-wrapper-2">Maecenas tempus: </span>
-
           <span className="span">0030012</span>
-
           <span className="text-wrapper-2">
             &nbsp;&nbsp; <br />
             <br />
           </span>
-
           <span className="span">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
             commodo ligula eget dolor. Aenean massa. Cum sociis natoque
@@ -49,7 +54,9 @@ export default function ThirdNavigationModel({ onClose, onYes })  {
         </p>
       </div>
 
+      {/* Modal footer with YES and NO buttons */}
       <div className="frame-2">
+        {/* YES button triggers onYes prop */}
         <Button
           variant="contained"
           startIcon={<CheckIcon />}
@@ -70,6 +77,7 @@ export default function ThirdNavigationModel({ onClose, onYes })  {
           YES
         </Button>
 
+        {/* NO button triggers onClose prop */}
         <Button
           variant="outlined"
           startIcon={<CancelIcon />}
@@ -92,4 +100,4 @@ export default function ThirdNavigationModel({ onClose, onYes })  {
       </div>
     </div>
   );
-};
+}
