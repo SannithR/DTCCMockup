@@ -13,6 +13,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import "./style.css";
 import Details from "../../Details/Details/Details";
 import CopyDialogueBox from "../../Dialogue/CopyDialogueBox/CopyDialogueBox";
+import DataTable from "../../../components/DataTable/DataTable";
 
 // Main content component for the updated page
 export default function ContentUpdated () {
@@ -359,282 +360,87 @@ export default function ContentUpdated () {
           </button>
         </div>
         {/* Table and action bar */}
-        <div className="container">
-          <div className="overlap">
-            <div className="overlap-wrapper">
-              <div className="overlap">
-                {/* Action bar for copy/delete */}
-                <div className="action-bar">
-                  <div className="frame-content2-8">
-                    <div className="element-to-of">Total Items Found: {totalItems}</div>
+        <DataTable
+          columns={[
+            {
+              key: 'column1',
+              label: 'Lorem Ipsum',
+              icon: <IconComponentNode className="line-1" />, // customize as needed
+              headerGroupClass: 'group-3',
+              className: 'data-column',
+            },
+            {
+              key: 'column2',
+              label: 'Pede justo',
+              icon: <IconComponentNode className="line-1" />, // customize as needed
+              headerGroupClass: 'group-4',
+              className: 'data-column',
+            },
+            {
+              key: 'column3',
+              label: 'Donec pede justo',
+              icon: <IconComponentNode className="line-1" />, // customize as needed
+              headerGroupClass: 'group-5',
+              className: 'data-column-2',
+            },
+            {
+              key: 'column4',
+              label: 'Donec pede justo',
+              icon: <IconComponentNode className="line-1" />, // customize as needed
+              headerGroupClass: 'group-5',
+              className: 'data-column-3',
+            },
+          ]}
+          data={currentData}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          totalItems={totalItems}
+          totalPages={totalPages}
+          selectedRows={selectedRows}
+          sortConfig={sortConfig}
+          onSort={handleSort}
+          onRowSelect={handleRowSelect}
+          onSelectAll={handleSelectAll}
+          onPageChange={handlePageChange}
+          onPrevPage={handlePrevPage}
+          onNextPage={handleNextPage}
+          renderActions={() => (
+            <div className="action-bar">
+              <div className="frame-content2-8">
+                <div className="element-to-of">Total Items Found: {totalItems}</div>
+              </div>
+              <div className="data-grid-action-bar">
+                <button
+                  className="button-2"
+                  onClick={() => {
+                    // Copy functionality (implement as needed)
+                    console.log('Copy selected items:', Array.from(selectedRows));
+                  }}
+                  disabled={selectedRows.size === 0}
+                  style={{ opacity: selectedRows.size === 0 ? 0.5 : 1, cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer' }}
+                >
+                  <div className="div-wrapper-2">
+                    <div className="text-wrapper-content2-8">COPY</div>
                   </div>
-                  <div className="data-grid-action-bar">
-                    <button
-                      className="button-2"
-                      onClick={() => {
-                        // Copy functionality (implement as needed)
-                        console.log('Copy selected items:', Array.from(selectedRows));
-                      }}
-                      disabled={selectedRows.size === 0}
-                      style={{ opacity: selectedRows.size === 0 ? 0.5 : 1, cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer' }}
-                    >
-                      <div className="div-wrapper-2">
-                        <div className="text-wrapper-content2-8">COPY</div>
-                      </div>
-                    </button>
-                    <button
-                      className="button-3"
-                      onClick={() => {
-                        // Delete functionality (implement as needed)
-                        console.log('Delete selected items:', Array.from(selectedRows));
-                        setSelectedRows(new Set());
-                      }}
-                      disabled={selectedRows.size === 0}
-                      style={{ opacity: selectedRows.size === 0 ? 0.5 : 1, cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer' }}
-                    >
-                      <div className="div-wrapper-2">
-                        <div className="text-wrapper-content2-8">DELETE</div>
-                      </div>
-                    </button>
+                </button>
+                <button
+                  className="button-3"
+                  onClick={() => {
+                    // Delete functionality (implement as needed)
+                    console.log('Delete selected items:', Array.from(selectedRows));
+                    setSelectedRows(new Set());
+                  }}
+                  disabled={selectedRows.size === 0}
+                  style={{ opacity: selectedRows.size === 0 ? 0.5 : 1, cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer' }}
+                >
+                  <div className="div-wrapper-2">
+                    <div className="text-wrapper-content2-8">DELETE</div>
                   </div>
-                </div>
-                {/* Decorative lines */}
-                <div className="container-wrapper">
-                  <div className="overlap-group-wrapper">
-                    <div className="overlap-group">
-                      <Line38 className="line-38" />
-                      <Line39 className="line-39" />
-                    </div>
-                  </div>
-                </div>
+                </button>
               </div>
             </div>
-            {/* Data grid (table) */}
-            <div className="container-2">
-              <div className="overlap-2">
-                <div className="data-grids">
-                  <div className="grids-data-grid">
-                    <div className="container-3">
-                      <div className="container-4">
-                        <div className="line-wrapper">
-                          <Line7 className="line-7" />
-                        </div>
-                        {/* Checkbox column for row selection */}
-                        <div className="checkbox-column">
-                          <div className="checkbox">
-                            <div className="div-5">
-                              <input
-                                type="checkbox"
-                                className="rectangle"
-                                checked={selectedRows.size === currentData.length && currentData.length > 0}
-                                onChange={handleSelectAll}
-                                style={{ cursor: 'pointer' }}
-                              />
-                            </div>
-                          </div>
-                          {/* Individual row checkboxes */}
-                          {currentData.map((item, index) => (
-                            <div
-                              key={item.id}
-                              className={index % 2 === 0 ? "checkbox-states" : "check-box-wrapper"}
-                            >
-                              <div className="div-5">
-                                <input
-                                  type="checkbox"
-                                  className="rectangle"
-                                  checked={selectedRows.has(item.id)}
-                                  onChange={() => handleRowSelect(item.id)}
-                                  style={{ cursor: 'pointer' }}
-                                />
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        {/* Data columns with sortable headers */}
-                        <div className="data-column">
-                          <div
-                            className="header-cell"
-                            onClick={() => handleSort('column1')}
-                            style={{ cursor: 'pointer' }}
-                          >
-                            <div className="frame-content2-9">
-                              <div className="group-3">
-                                <IconComponentNode className="line-1" />
-                                <div className="label-3">
-                                  Lorem Ipsum
-                                  {sortConfig.key === 'column1' && (
-                                    <span style={{ marginLeft: '5px' }}>
-                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          {currentData.map((item, index) => (
-                            <div
-                              key={`col1-${item.id}`}
-                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
-                            >
-                              <div className="div-wrapper-2">
-                                <div className="lorem-lipsum">{item.column1}</div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        {/* Repeat for other columns */}
-                        <div className="data-column">
-                          <div
-                            className="header-cell"
-                            onClick={() => handleSort('column2')}
-                            style={{ cursor: 'pointer' }}
-                          >
-                            <div className="frame-content2-9">
-                              <div className="group-4">
-                                <IconComponentNode className="line-1" />
-                                <div className="label-3">
-                                  Pede justo
-                                  {sortConfig.key === 'column2' && (
-                                    <span style={{ marginLeft: '5px' }}>
-                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          {currentData.map((item, index) => (
-                            <div
-                              key={`col2-${item.id}`}
-                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
-                            >
-                              <div className="div-wrapper-2">
-                                <div className="lorem-lipsum">{item.column2}</div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="data-column-2">
-                          <div
-                            className="header-cell"
-                            onClick={() => handleSort('column3')}
-                            style={{ cursor: 'pointer' }}
-                          >
-                            <div className="frame-content2-9">
-                              <div className="group-5">
-                                <IconComponentNode className="line-1" />
-                                <div className="label-3">
-                                  Donec pede justo
-                                  {sortConfig.key === 'column3' && (
-                                    <span style={{ marginLeft: '5px' }}>
-                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          {currentData.map((item, index) => (
-                            <div
-                              key={`col3-${item.id}`}
-                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
-                            >
-                              <div className="div-wrapper-2">
-                                <div className="lorem-lipsum">{item.column3}</div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="data-column-3">
-                          <div
-                            className="header-cell"
-                            onClick={() => handleSort('column4')}
-                            style={{ cursor: 'pointer' }}
-                          >
-                            <div className="frame-content2-9">
-                              <div className="group-5">
-                                <IconComponentNode className="line-1" />
-                                <div className="label-3">
-                                  Donec pede justo
-                                  {sortConfig.key === 'column4' && (
-                                    <span style={{ marginLeft: '5px' }}>
-                                      {sortConfig.direction === 'asc' ? '↑' : '↓'}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          {currentData.map((item, index) => (
-                            <div
-                              key={`col4-${item.id}`}
-                              className={index % 2 === 0 ? "cell-states" : "cell-states-2"}
-                            >
-                              <div className="div-wrapper-2">
-                                <div className="lorem-lipsum">{item.column4}</div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="container-5" />
-                    </div>
-                  </div>
-                </div>
-                <Line40 className="line-40" />
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Pagination controls */}
-        <div className="pagination">
-          <div className="frame-content2-new">
-            <div className="frame-content2-11">
-              <div className="pagination-info">
-                Showing {startIndex + 1} to {Math.min(endIndex, totalItems)} of {totalItems} entries
-              </div>
-            </div>
-            <div className="pagination-controls">
-              <button
-                className="pagination-btn"
-                onClick={handlePrevPage}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </button>
-              <div className="page-numbers">
-                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                  let pageNum;
-                  if (totalPages <= 5) {
-                    pageNum = i + 1;
-                  } else if (currentPage <= 3) {
-                    pageNum = i + 1;
-                  } else if (currentPage >= totalPages - 2) {
-                    pageNum = totalPages - 4 + i;
-                  } else {
-                    pageNum = currentPage - 2 + i;
-                  }
-                  return (
-                    <button
-                      key={pageNum}
-                      className={`page-number ${currentPage === pageNum ? 'active' : ''}`}
-                      onClick={() => handlePageChange(pageNum)}
-                    >
-                      {pageNum}
-                    </button>
-                  );
-                })}
-              </div>
-              <button
-                className="pagination-btn"
-                onClick={handleNextPage}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
+          )}
+        />
         {/* Details modal for row info */}
         {isModalOpen && selectedRowData && (
           <div className="modal-overlay" onClick={handleModalBackdropClick}>
