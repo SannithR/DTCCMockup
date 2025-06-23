@@ -10,6 +10,19 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Box from '@mui/material/Box';
 import "./style.css";
 import Details from "../../Details/Details/Details";
 import CopyDialogueBox from "../../Dialogue/CopyDialogueBox/CopyDialogueBox";
@@ -254,21 +267,24 @@ export default function ContentUpdated () {
                     <div className="frame-content2-5" />
                   </div>
                   <div className="div-4">
-                    <select
-                      value={selectedDropdowns[`dropdown${num}`]}
-                      onChange={(e) => handleDropdownChange(`dropdown${num}`, e.target.value)}
-                      style={{
-                        background: 'transparent', border: 'none', outline: 'none', width: '100%',
-                        cursor: 'pointer', appearance: 'none', color: 'inherit', fontSize: 'inherit', fontFamily: 'inherit'
-                      }}
-                    >
-                      {dropdownOptions.map(option => (
-                        <option key={option.value} value={option.value}>{option.label}</option>
-                      ))}
-                    </select>
-                    <div className="frame-content2-6">
-                      <KeyboardArrowDownIcon style={{ color: '#666', fontSize: '20px', pointerEvents: 'none', marginRight:"-670px" }} />
-                    </div>
+                    <FormControl fullWidth variant="standard" sx={{ m: 0 }}>
+                      <Select
+                        value={selectedDropdowns[`dropdown${num}`]}
+                        onChange={(e) => handleDropdownChange(`dropdown${num}`, e.target.value)}
+                        disableUnderline
+                        className="mui-select"
+                        sx={{
+                          background: 'transparent', border: 'none', outline: 'none', width: '100%',
+                          cursor: 'pointer', color: 'inherit', fontSize: 'inherit', fontFamily: 'inherit',
+                          boxShadow: 'none',
+                        }}
+                        IconComponent={KeyboardArrowDownIcon}
+                      >
+                        {dropdownOptions.map(option => (
+                          <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </div>
                 </div>
               ))}
@@ -285,21 +301,24 @@ export default function ContentUpdated () {
                   <div className="frame-content2-5" />
                 </div>
                 <div className="div-4">
-                  <select
-                    value={selectedDropdowns.dropdown4}
-                    onChange={(e) => handleDropdownChange('dropdown4', e.target.value)}
-                    style={{
-                      background: 'transparent', border: 'none', outline: 'none', width: '100%',
-                      cursor: 'pointer', appearance: 'none', color: 'inherit', fontSize: 'inherit', fontFamily: 'inherit'
-                    }}
-                  >
-                    {dropdownOptions.map(option => (
-                      <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                  </select>
-                  <div className="frame-content2-6">
-                    <KeyboardArrowDownIcon style={{ color: '#666', fontSize: '20px', pointerEvents: 'none', marginRight:"-670px" }} />
-                  </div>
+                  <FormControl fullWidth variant="standard" sx={{ m: 0 }}>
+                    <Select
+                      value={selectedDropdowns.dropdown4}
+                      onChange={(e) => handleDropdownChange('dropdown4', e.target.value)}
+                      disableUnderline
+                      className="mui-select"
+                      sx={{
+                        background: 'transparent', border: 'none', outline: 'none', width: '100%',
+                        cursor: 'pointer', color: 'inherit', fontSize: 'inherit', fontFamily: 'inherit',
+                        boxShadow: 'none',
+                      }}
+                      IconComponent={KeyboardArrowDownIcon}
+                    >
+                      {dropdownOptions.map(option => (
+                        <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </div>
                 <div className="help-text-wrapper-content2">
                   <div className="help-text">Advanced</div>
@@ -319,45 +338,69 @@ export default function ContentUpdated () {
                         </div>
                         <div className="frame-content2-wrapper">
                           <div className="frame-content2-7">
-                            <input
+                            <TextField
                               className="search-input"
                               placeholder="Search"
-                              type="text"
+                              variant="standard"
                               value={searchTerm}
                               onChange={handleSearchChange}
-                              style={{
-                                background: 'transparent', border: 'none', outline: 'none', width: '100%', height: '100%',
-                                cursor: 'text', paddingRight: '30px', fontSize: 'inherit', fontFamily: 'inherit', color: 'inherit'
+                              InputProps={{
+                                disableUnderline: true,
+                                style: {
+                                  background: 'transparent', border: 'none', outline: 'none', width: '100%', height: '100%',
+                                  cursor: 'text', paddingRight: '30px', fontSize: 'inherit', fontFamily: 'inherit', color: 'inherit'
+                                },
                               }}
+                              sx={{ width: '100%' }}
                             />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                    <input
+                  <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                    <TextField
                       className="input"
-                      type="text"
+                      variant="standard"
                       onChange={handleSearchChange}
                       onClick={handleSearchClick}
-                      style={{ cursor: 'text', paddingRight: '40px' }}
+                      InputProps={{
+                        disableUnderline: true,
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <SearchIcon
+                              style={{ color: 'white', fontSize: '20px', cursor: 'pointer' }}
+                              onClick={handleSearchClick}
+                            />
+                          </InputAdornment>
+                        ),
+                        style: { cursor: 'text', paddingRight: '40px' },
+                      }}
+                      sx={{ width: '100%' }}
                     />
-                    <SearchIcon
-                      style={{ position: 'absolute', right: '12px', color: 'white', fontSize: '20px', cursor: 'pointer' }}
-                      onClick={handleSearchClick}
-                    />
-                  </div>
+                  </Box>
                 </div>
               </div>
             </div>
           </div>
           {/* Find button triggers copy dialog */}
-          <button className="button" onClick={handleSearchClick}>
+          <Button
+            className="button"
+            onClick={handleSearchClick}
+            sx={{
+              background: 'inherit',
+              color: 'inherit',
+              boxShadow: 'none',
+              borderRadius: 0,
+              padding: 0,
+              minWidth: 0,
+              '&:hover': { background: 'inherit', opacity: 0.9 },
+            }}
+          >
             <div className="div-wrapper-2">
               <div className="PRIMARY">FIND</div>
             </div>
-          </button>
+          </Button>
         </div>
         {/* Table and action bar */}
         <DataTable
@@ -410,20 +453,30 @@ export default function ContentUpdated () {
                 <div className="element-to-of">Total Items Found: {totalItems}</div>
               </div>
               <div className="data-grid-action-bar">
-                <button
+                <Button
                   className="button-2"
                   onClick={() => {
                     // Copy functionality (implement as needed)
                     console.log('Copy selected items:', Array.from(selectedRows));
                   }}
                   disabled={selectedRows.size === 0}
-                  style={{ opacity: selectedRows.size === 0 ? 0.5 : 1, cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer' }}
+                  sx={{
+                    opacity: selectedRows.size === 0 ? 0.5 : 1,
+                    cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer',
+                    background: 'inherit',
+                    color: 'inherit',
+                    boxShadow: 'none',
+                    borderRadius: 0,
+                    padding: 0,
+                    minWidth: 0,
+                    '&:hover': { background: 'inherit', opacity: 0.9 },
+                  }}
                 >
                   <div className="div-wrapper-2">
                     <div className="text-wrapper-content2-8">COPY</div>
                   </div>
-                </button>
-                <button
+                </Button>
+                <Button
                   className="button-3"
                   onClick={() => {
                     // Delete functionality (implement as needed)
@@ -431,48 +484,50 @@ export default function ContentUpdated () {
                     setSelectedRows(new Set());
                   }}
                   disabled={selectedRows.size === 0}
-                  style={{ opacity: selectedRows.size === 0 ? 0.5 : 1, cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer' }}
+                  sx={{
+                    opacity: selectedRows.size === 0 ? 0.5 : 1,
+                    cursor: selectedRows.size === 0 ? 'not-allowed' : 'pointer',
+                    background: 'inherit',
+                    color: 'inherit',
+                    boxShadow: 'none',
+                    borderRadius: 0,
+                    padding: 0,
+                    minWidth: 0,
+                    '&:hover': { background: 'inherit', opacity: 0.9 },
+                  }}
                 >
                   <div className="div-wrapper-2">
                     <div className="text-wrapper-content2-8">DELETE</div>
                   </div>
-                </button>
+                </Button>
               </div>
             </div>
           )}
         />
         {/* Details modal for row info */}
-        {isModalOpen && selectedRowData && (
-          <div className="modal-overlay" onClick={handleModalBackdropClick}>
-            <div className="modal-content">
-              <div className="modal-header">
-                <h2 className="modal-title">Details for {selectedRowData.column1}</h2>
-                <button className="modal-close-btn" onClick={handleCloseModal}>
-                  <CloseIcon style={{ fontSize: '24px', color: '#616161' }} />
-                </button>
-              </div>
-              <div className="modal-body">
-                <Details />
-              </div>
-            </div>
-          </div>
-        )}
+        <Dialog open={isModalOpen && !!selectedRowData} onClose={handleCloseModal} className="modal-overlay" PaperProps={{ className: 'modal-content' }}>
+          <DialogTitle className="modal-header" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span className="modal-title">Details for {selectedRowData?.column1}</span>
+            <IconButton className="modal-close-btn" onClick={handleCloseModal} size="large">
+              <CloseIcon style={{ fontSize: '24px', color: '#616161' }} />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent className="modal-body">
+            <Details />
+          </DialogContent>
+        </Dialog>
         {/* Copy dialog modal */}
-        {isCopyDialogOpen && (
-          <div className="modal-overlay" onClick={handleCopyDialogBackdropClick}>
-            <div className="modal-content">
-              <div className="modal-header">
-                <h2 className="modal-title"> Lookup</h2>
-                <button className="modal-close-btn" onClick={handleCloseCopyDialog}>
-                  <CloseIcon style={{ fontSize: '24px', color: '#616161' }} />
-                </button>
-              </div>
-              <div className="modal-body">
-                <CopyDialogueBox />
-              </div>
-            </div>
-          </div>
-        )}
+        <Dialog open={isCopyDialogOpen} onClose={handleCloseCopyDialog} className="modal-overlay" PaperProps={{ className: 'modal-content' }}>
+          <DialogTitle className="modal-header" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span className="modal-title"> Lookup</span>
+            <IconButton className="modal-close-btn" onClick={handleCloseCopyDialog} size="large">
+              <CloseIcon style={{ fontSize: '24px', color: '#616161' }} />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent className="modal-body">
+            <CopyDialogueBox />
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
