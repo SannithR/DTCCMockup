@@ -20,20 +20,17 @@ import {
 } from '@mui/icons-material';
 import "./style.css";
 import "../../../styleguide.css";
-import ContentUpdated from "../../Page3Updated/ContentUpdated/ContentUpdated";
-import ThirdNavigation from "../../ThirdNavigation/ThirdNavigation/ThirdNavigation";
+
 
 export default function Content () {
-  const [searchTerm, setSearchTerm] = useState("");
+
   const [selectedView, setSelectedView] = useState("All");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("NAVIGATION ONE");
+
   return (
     <div className="content">
     
 
-      {/* Conditional rendering based on active tab */}
-      {activeTab === "NAVIGATION ONE" && (
+   
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' ,padding: '20px' }}>
           <div className="simple-alerts">
         <div className="a-simple-info-alert-wrapper">
@@ -608,17 +605,9 @@ export default function Content () {
       </div>
 
         </div>
-      )}
+      
 
-      {/* Content for NAVIGATION TWO */}
-      {activeTab === "NAVIGATION TWO" && (
-        <ContentUpdated />
-      )}
-
-      {/* Content for NAVIGATION THREE */}
-      {activeTab === "NAVIGATION THREE" && (
-        <ThirdNavigation />
-      )}
+  
 
      
     </div>
